@@ -1,0 +1,38 @@
+{
+  "name": "actionledger-pilot",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Durable action receipts and fault rehearsal for agent tool execution",
+  "engines": {
+    "node": ">=24.11"
+  },
+  "scripts": {
+    "dev": "tsx src/server.ts",
+    "build": "vite build && tsc -p tsconfig.server.json",
+    "start": "node dist/server.js",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/ledger.test.ts tests/lab.test.ts",
+    "test:e2e": "playwright test",
+    "check": "npm run typecheck && npm test && npm run build && npm run test:e2e && npm run build:demo && npm run test:demo",
+    "demo:report": "tsx scripts/report.ts",
+    "build:demo": "tsx scripts/build-demo.ts",
+    "test:demo": "playwright test -c playwright.demo.config.ts"
+  },
+  "dependencies": {
+    "@composio/core": "0.29.0",
+    "@opentelemetry/api": "1.9.0",
+    "@opentelemetry/sdk-trace-base": "2.12.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.65.1",
+    "@types/node": "26.6.6",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2",
+    "vite": "8.3.8"
+  }
+}

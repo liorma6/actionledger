@@ -1,0 +1,1642 @@
+{
+  "resourceSpans": [
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "actionledger-pilot"
+            }
+          }
+        ]
+      },
+      "scopeSpans": [
+        {
+          "scope": {
+            "name": "actionledger",
+            "version": "0.1.0"
+          },
+          "spans": [
+            {
+              "traceId": "c6021c1715b84a2e21a381e4a7da3f27",
+              "spanId": "3edd9f71759b25d9",
+              "parentSpanId": "0976e2afc4d50469",
+              "name": "execute_tool calendar.create",
+              "startTimeUnixNano": "1794931154586000000",
+              "endTimeUnixNano": "1794931154608474200",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "calendar.create"
+                  }
+                },
+                {
+                  "key": "error.type",
+                  "value": {
+                    "stringValue": "Error"
+                  }
+                }
+              ],
+              "status": {
+                "code": 2
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "c6021c1715b84a2e21a381e4a7da3f27",
+              "spanId": "84da559ff85cf012",
+              "parentSpanId": "0976e2afc4d50469",
+              "name": "execute_tool calendar.create",
+              "startTimeUnixNano": "1794931154609000000",
+              "endTimeUnixNano": "1794931154619306200",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "calendar.create"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "200"
+                  }
+                }
+              ],
+              "status": {
+                "code": 1
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "c6021c1715b84a2e21a381e4a7da3f27",
+              "spanId": "a0e90bb8470a283f",
+              "parentSpanId": "0976e2afc4d50469",
+              "name": "execute_tool chat.send",
+              "startTimeUnixNano": "1794931154619000000",
+              "endTimeUnixNano": "1794931154623348800",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "chat.send"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "200"
+                  }
+                }
+              ],
+              "status": {
+                "code": 1
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "c6021c1715b84a2e21a381e4a7da3f27",
+              "spanId": "0976e2afc4d50469",
+              "name": "actionledger.rehearsal",
+              "startTimeUnixNano": "1794931154552000000",
+              "endTimeUnixNano": "1794931154623586600",
+              "attributes": [
+                {
+                  "key": "actionledger.mode",
+                  "value": {
+                    "stringValue": "caller-retry"
+                  }
+                },
+                {
+                  "key": "actionledger.scenario",
+                  "value": {
+                    "stringValue": "lost-response"
+                  }
+                }
+              ],
+              "status": {
+                "code": 0
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "a22e6e081128aed82965f934aa8eb325",
+              "spanId": "d94cf6b500c2b6e6",
+              "parentSpanId": "795be33ddf6869c2",
+              "name": "execute_tool calendar.create",
+              "startTimeUnixNano": "1794931154642000000",
+              "endTimeUnixNano": "1794931154645989300",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "calendar.create"
+                  }
+                },
+                {
+                  "key": "error.type",
+                  "value": {
+                    "stringValue": "Error"
+                  }
+                }
+              ],
+              "status": {
+                "code": 2
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "a22e6e081128aed82965f934aa8eb325",
+              "spanId": "9d8d6888e9fa88e9",
+              "parentSpanId": "795be33ddf6869c2",
+              "name": "execute_tool calendar.create",
+              "startTimeUnixNano": "1794931154647000000",
+              "endTimeUnixNano": "1794931154649821500",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "calendar.create"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "200"
+                  }
+                }
+              ],
+              "status": {
+                "code": 1
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "a22e6e081128aed82965f934aa8eb325",
+              "spanId": "d8af8f59426868e6",
+              "parentSpanId": "795be33ddf6869c2",
+              "name": "execute_tool chat.send",
+              "startTimeUnixNano": "1794931154653000000",
+              "endTimeUnixNano": "1794931154655574400",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "chat.send"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "200"
+                  }
+                }
+              ],
+              "status": {
+                "code": 1
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "a22e6e081128aed82965f934aa8eb325",
+              "spanId": "795be33ddf6869c2",
+              "name": "actionledger.rehearsal",
+              "startTimeUnixNano": "1794931154628000000",
+              "endTimeUnixNano": "1794931154656621500",
+              "attributes": [
+                {
+                  "key": "actionledger.mode",
+                  "value": {
+                    "stringValue": "guarded"
+                  }
+                },
+                {
+                  "key": "actionledger.scenario",
+                  "value": {
+                    "stringValue": "lost-response"
+                  }
+                }
+              ],
+              "status": {
+                "code": 0
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "080496eb41f02b5fdb12df2519887706",
+              "spanId": "256dd5cf20e17838",
+              "parentSpanId": "9be07602e638d67f",
+              "name": "execute_tool calendar.create",
+              "startTimeUnixNano": "1794931154676000000",
+              "endTimeUnixNano": "1794931154679305500",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "calendar.create"
+                  }
+                },
+                {
+                  "key": "error.type",
+                  "value": {
+                    "stringValue": "Error"
+                  }
+                }
+              ],
+              "status": {
+                "code": 2
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "080496eb41f02b5fdb12df2519887706",
+              "spanId": "3d6516714fc91ea4",
+              "parentSpanId": "9be07602e638d67f",
+              "name": "execute_tool calendar.create",
+              "startTimeUnixNano": "1794931154680000000",
+              "endTimeUnixNano": "1794931154682256800",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "calendar.create"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "200"
+                  }
+                }
+              ],
+              "status": {
+                "code": 1
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "080496eb41f02b5fdb12df2519887706",
+              "spanId": "f0ed310431136b1c",
+              "parentSpanId": "9be07602e638d67f",
+              "name": "execute_tool chat.send",
+              "startTimeUnixNano": "1794931154682000000",
+              "endTimeUnixNano": "1794931154684863800",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "chat.send"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "200"
+                  }
+                }
+              ],
+              "status": {
+                "code": 1
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "080496eb41f02b5fdb12df2519887706",
+              "spanId": "9be07602e638d67f",
+              "name": "actionledger.rehearsal",
+              "startTimeUnixNano": "1794931154660000000",
+              "endTimeUnixNano": "1794931154684921300",
+              "attributes": [
+                {
+                  "key": "actionledger.mode",
+                  "value": {
+                    "stringValue": "caller-retry"
+                  }
+                },
+                {
+                  "key": "actionledger.scenario",
+                  "value": {
+                    "stringValue": "unverifiable"
+                  }
+                }
+              ],
+              "status": {
+                "code": 0
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "2c3c154e3cbbb0575940c693ea5cef1f",
+              "spanId": "28616336dbd2b633",
+              "parentSpanId": "b07b76e33b0ffd74",
+              "name": "execute_tool calendar.create",
+              "startTimeUnixNano": "1794931154705000000",
+              "endTimeUnixNano": "1794931154708732900",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "calendar.create"
+                  }
+                },
+                {
+                  "key": "error.type",
+                  "value": {
+                    "stringValue": "Error"
+                  }
+                }
+              ],
+              "status": {
+                "code": 2
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "2c3c154e3cbbb0575940c693ea5cef1f",
+              "spanId": "b07b76e33b0ffd74",
+              "name": "actionledger.rehearsal",
+              "startTimeUnixNano": "1794931154690000000",
+              "endTimeUnixNano": "1794931154709373100",
+              "attributes": [
+                {
+                  "key": "actionledger.mode",
+                  "value": {
+                    "stringValue": "guarded"
+                  }
+                },
+                {
+                  "key": "actionledger.scenario",
+                  "value": {
+                    "stringValue": "unverifiable"
+                  }
+                }
+              ],
+              "status": {
+                "code": 0
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "3ad6867aaabffa659d03361a9c2cf357",
+              "spanId": "0c45421ad49dac89",
+              "parentSpanId": "a54c88ada2a2d1b8",
+              "name": "execute_tool calendar.patch",
+              "startTimeUnixNano": "1794931154726000000",
+              "endTimeUnixNano": "1794931154728921800",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "calendar.patch"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "200"
+                  }
+                }
+              ],
+              "status": {
+                "code": 1
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "3ad6867aaabffa659d03361a9c2cf357",
+              "spanId": "3402d7d93f40d5bf",
+              "parentSpanId": "a54c88ada2a2d1b8",
+              "name": "execute_tool calendar.patch",
+              "startTimeUnixNano": "1794931154729000000",
+              "endTimeUnixNano": "1794931154731521000",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "calendar.patch"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "200"
+                  }
+                }
+              ],
+              "status": {
+                "code": 1
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "3ad6867aaabffa659d03361a9c2cf357",
+              "spanId": "7089a4f785cd3394",
+              "parentSpanId": "a54c88ada2a2d1b8",
+              "name": "execute_tool chat.send",
+              "startTimeUnixNano": "1794931154732000000",
+              "endTimeUnixNano": "1794931154733798000",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "chat.send"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "200"
+                  }
+                }
+              ],
+              "status": {
+                "code": 1
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "3ad6867aaabffa659d03361a9c2cf357",
+              "spanId": "a54c88ada2a2d1b8",
+              "name": "actionledger.rehearsal",
+              "startTimeUnixNano": "1794931154714000000",
+              "endTimeUnixNano": "1794931154733772600",
+              "attributes": [
+                {
+                  "key": "actionledger.mode",
+                  "value": {
+                    "stringValue": "caller-retry"
+                  }
+                },
+                {
+                  "key": "actionledger.scenario",
+                  "value": {
+                    "stringValue": "stale-write"
+                  }
+                }
+              ],
+              "status": {
+                "code": 0
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "297e69f73fbf9fcd3895745c9cf1d337",
+              "spanId": "f93aa2ba45782e41",
+              "parentSpanId": "22fc35aff04504ae",
+              "name": "execute_tool calendar.patch",
+              "startTimeUnixNano": "1794931154753000000",
+              "endTimeUnixNano": "1794931154755816700",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "calendar.patch"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "200"
+                  }
+                }
+              ],
+              "status": {
+                "code": 1
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "297e69f73fbf9fcd3895745c9cf1d337",
+              "spanId": "8a7fb4700d431844",
+              "parentSpanId": "22fc35aff04504ae",
+              "name": "execute_tool calendar.patch",
+              "startTimeUnixNano": "1794931154757000000",
+              "endTimeUnixNano": "1794931154758904300",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "calendar.patch"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "412"
+                  }
+                }
+              ],
+              "status": {
+                "code": 2
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "297e69f73fbf9fcd3895745c9cf1d337",
+              "spanId": "22fc35aff04504ae",
+              "name": "actionledger.rehearsal",
+              "startTimeUnixNano": "1794931154739000000",
+              "endTimeUnixNano": "1794931154760347800",
+              "attributes": [
+                {
+                  "key": "actionledger.mode",
+                  "value": {
+                    "stringValue": "guarded"
+                  }
+                },
+                {
+                  "key": "actionledger.scenario",
+                  "value": {
+                    "stringValue": "stale-write"
+                  }
+                }
+              ],
+              "status": {
+                "code": 0
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "6caf2c3ad81128235f148fd7acd07257",
+              "spanId": "0b83dff01e930b73",
+              "parentSpanId": "d4da1ca7a541eef9",
+              "name": "execute_tool calendar.create",
+              "startTimeUnixNano": "1794931154776000000",
+              "endTimeUnixNano": "1794931154786786800",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "calendar.create"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "200"
+                  }
+                }
+              ],
+              "status": {
+                "code": 1
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "6caf2c3ad81128235f148fd7acd07257",
+              "spanId": "46fa15c28fa9a3f1",
+              "parentSpanId": "d4da1ca7a541eef9",
+              "name": "execute_tool calendar.create",
+              "startTimeUnixNano": "1794931154778000000",
+              "endTimeUnixNano": "1794931154787775200",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "calendar.create"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "200"
+                  }
+                }
+              ],
+              "status": {
+                "code": 1
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "6caf2c3ad81128235f148fd7acd07257",
+              "spanId": "384710deb321382a",
+              "parentSpanId": "d4da1ca7a541eef9",
+              "name": "execute_tool calendar.create",
+              "startTimeUnixNano": "1794931154779000000",
+              "endTimeUnixNano": "1794931154788644400",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "calendar.create"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "200"
+                  }
+                }
+              ],
+              "status": {
+                "code": 1
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "6caf2c3ad81128235f148fd7acd07257",
+              "spanId": "9b94b821e0a40790",
+              "parentSpanId": "d4da1ca7a541eef9",
+              "name": "execute_tool calendar.create",
+              "startTimeUnixNano": "1794931154779000000",
+              "endTimeUnixNano": "1794931154788492800",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "calendar.create"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "200"
+                  }
+                }
+              ],
+              "status": {
+                "code": 1
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "6caf2c3ad81128235f148fd7acd07257",
+              "spanId": "5f87529548a43413",
+              "parentSpanId": "d4da1ca7a541eef9",
+              "name": "execute_tool calendar.create",
+              "startTimeUnixNano": "1794931154777000000",
+              "endTimeUnixNano": "1794931154788807900",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "calendar.create"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "200"
+                  }
+                }
+              ],
+              "status": {
+                "code": 1
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "6caf2c3ad81128235f148fd7acd07257",
+              "spanId": "9600ab0231ccb7de",
+              "parentSpanId": "d4da1ca7a541eef9",
+              "name": "execute_tool calendar.create",
+              "startTimeUnixNano": "1794931154777000000",
+              "endTimeUnixNano": "1794931154788717700",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "calendar.create"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "200"
+                  }
+                }
+              ],
+              "status": {
+                "code": 1
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "6caf2c3ad81128235f148fd7acd07257",
+              "spanId": "c939e8009e2837b1",
+              "parentSpanId": "d4da1ca7a541eef9",
+              "name": "execute_tool calendar.create",
+              "startTimeUnixNano": "1794931154778000000",
+              "endTimeUnixNano": "1794931154789228600",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "calendar.create"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "200"
+                  }
+                }
+              ],
+              "status": {
+                "code": 1
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "6caf2c3ad81128235f148fd7acd07257",
+              "spanId": "699ac025f09546f3",
+              "parentSpanId": "d4da1ca7a541eef9",
+              "name": "execute_tool calendar.create",
+              "startTimeUnixNano": "1794931154779000000",
+              "endTimeUnixNano": "1794931154789280900",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "calendar.create"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "200"
+                  }
+                }
+              ],
+              "status": {
+                "code": 1
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "6caf2c3ad81128235f148fd7acd07257",
+              "spanId": "d4da1ca7a541eef9",
+              "name": "actionledger.rehearsal",
+              "startTimeUnixNano": "1794931154763000000",
+              "endTimeUnixNano": "1794931154789842900",
+              "attributes": [
+                {
+                  "key": "actionledger.mode",
+                  "value": {
+                    "stringValue": "caller-retry"
+                  }
+                },
+                {
+                  "key": "actionledger.scenario",
+                  "value": {
+                    "stringValue": "concurrent"
+                  }
+                }
+              ],
+              "status": {
+                "code": 0
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "4cf94a57dae0d6e48dbf203722bdf4eb",
+              "spanId": "e2e6369b0a932195",
+              "parentSpanId": "8348be34e43ca52f",
+              "name": "execute_tool calendar.create",
+              "startTimeUnixNano": "1794931154808000000",
+              "endTimeUnixNano": "1794931154811862000",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "calendar.create"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "200"
+                  }
+                }
+              ],
+              "status": {
+                "code": 1
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "4cf94a57dae0d6e48dbf203722bdf4eb",
+              "spanId": "8348be34e43ca52f",
+              "name": "actionledger.rehearsal",
+              "startTimeUnixNano": "1794931154795000000",
+              "endTimeUnixNano": "1794931154812730600",
+              "attributes": [
+                {
+                  "key": "actionledger.mode",
+                  "value": {
+                    "stringValue": "guarded"
+                  }
+                },
+                {
+                  "key": "actionledger.scenario",
+                  "value": {
+                    "stringValue": "concurrent"
+                  }
+                }
+              ],
+              "status": {
+                "code": 0
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "a151d0011ec4014545231ff5e8470967",
+              "spanId": "d1624cf836db281f",
+              "parentSpanId": "bc807ca91d4d1356",
+              "name": "execute_tool calendar.create",
+              "startTimeUnixNano": "1794931154832000000",
+              "endTimeUnixNano": "1794931154834419100",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "calendar.create"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "200"
+                  }
+                }
+              ],
+              "status": {
+                "code": 1
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "a151d0011ec4014545231ff5e8470967",
+              "spanId": "c6bf424218fb89d1",
+              "parentSpanId": "bc807ca91d4d1356",
+              "name": "execute_tool calendar.create",
+              "startTimeUnixNano": "1794931154835000000",
+              "endTimeUnixNano": "1794931154836475700",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "calendar.create"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "200"
+                  }
+                }
+              ],
+              "status": {
+                "code": 1
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "a151d0011ec4014545231ff5e8470967",
+              "spanId": "bc807ca91d4d1356",
+              "name": "actionledger.rehearsal",
+              "startTimeUnixNano": "1794931154821000000",
+              "endTimeUnixNano": "1794931154836858600",
+              "attributes": [
+                {
+                  "key": "actionledger.mode",
+                  "value": {
+                    "stringValue": "caller-retry"
+                  }
+                },
+                {
+                  "key": "actionledger.scenario",
+                  "value": {
+                    "stringValue": "key-conflict"
+                  }
+                }
+              ],
+              "status": {
+                "code": 0
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "3e741dd16f01e612ac33fffaa2765cc2",
+              "spanId": "920a2b38aea1393d",
+              "parentSpanId": "8ec836a15845e99c",
+              "name": "execute_tool calendar.create",
+              "startTimeUnixNano": "1794931154853000000",
+              "endTimeUnixNano": "1794931154855601500",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "calendar.create"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "200"
+                  }
+                }
+              ],
+              "status": {
+                "code": 1
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "3e741dd16f01e612ac33fffaa2765cc2",
+              "spanId": "8ec836a15845e99c",
+              "name": "actionledger.rehearsal",
+              "startTimeUnixNano": "1794931154840000000",
+              "endTimeUnixNano": "1794931154856703800",
+              "attributes": [
+                {
+                  "key": "actionledger.mode",
+                  "value": {
+                    "stringValue": "guarded"
+                  }
+                },
+                {
+                  "key": "actionledger.scenario",
+                  "value": {
+                    "stringValue": "key-conflict"
+                  }
+                }
+              ],
+              "status": {
+                "code": 0
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "55a1a94eb6c8f213646bfd0e52208f01",
+              "spanId": "d1edc9cfd5d7b0ac",
+              "parentSpanId": "186b6c49eaff90b8",
+              "name": "execute_tool calendar.create",
+              "startTimeUnixNano": "1794931154877000000",
+              "endTimeUnixNano": "1794931154879367000",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "calendar.create"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "200"
+                  }
+                }
+              ],
+              "status": {
+                "code": 1
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "55a1a94eb6c8f213646bfd0e52208f01",
+              "spanId": "186b6c49eaff90b8",
+              "name": "actionledger.rehearsal",
+              "startTimeUnixNano": "1794931154862000000",
+              "endTimeUnixNano": "1794931154878994800",
+              "attributes": [
+                {
+                  "key": "actionledger.mode",
+                  "value": {
+                    "stringValue": "caller-retry"
+                  }
+                },
+                {
+                  "key": "actionledger.scenario",
+                  "value": {
+                    "stringValue": "wrong-account"
+                  }
+                }
+              ],
+              "status": {
+                "code": 0
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "59c23d60fcad8c42a7e3a605f90b5b44",
+              "spanId": "6d9788d384360078",
+              "name": "actionledger.rehearsal",
+              "startTimeUnixNano": "1794931154885000000",
+              "endTimeUnixNano": "1794931154898109200",
+              "attributes": [
+                {
+                  "key": "actionledger.mode",
+                  "value": {
+                    "stringValue": "guarded"
+                  }
+                },
+                {
+                  "key": "actionledger.scenario",
+                  "value": {
+                    "stringValue": "wrong-account"
+                  }
+                }
+              ],
+              "status": {
+                "code": 0
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "e0bdaaca1cdf29d72da6e7a3a5237528",
+              "spanId": "084c3901e100f698",
+              "parentSpanId": "925ea5fb178a2ddf",
+              "name": "execute_tool calendar.create",
+              "startTimeUnixNano": "1794931154914000000",
+              "endTimeUnixNano": "1794931154916270000",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "calendar.create"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "500"
+                  }
+                }
+              ],
+              "status": {
+                "code": 2
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "e0bdaaca1cdf29d72da6e7a3a5237528",
+              "spanId": "1beba7e52f5cebab",
+              "parentSpanId": "925ea5fb178a2ddf",
+              "name": "execute_tool calendar.create",
+              "startTimeUnixNano": "1794931154916000000",
+              "endTimeUnixNano": "1794931154917422400",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "calendar.create"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "200"
+                  }
+                }
+              ],
+              "status": {
+                "code": 1
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "e0bdaaca1cdf29d72da6e7a3a5237528",
+              "spanId": "e95997bb24fbe1c5",
+              "parentSpanId": "925ea5fb178a2ddf",
+              "name": "execute_tool chat.send",
+              "startTimeUnixNano": "1794931154918000000",
+              "endTimeUnixNano": "1794931154918939500",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "chat.send"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "200"
+                  }
+                }
+              ],
+              "status": {
+                "code": 1
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "e0bdaaca1cdf29d72da6e7a3a5237528",
+              "spanId": "925ea5fb178a2ddf",
+              "name": "actionledger.rehearsal",
+              "startTimeUnixNano": "1794931154902000000",
+              "endTimeUnixNano": "1794931154918981600",
+              "attributes": [
+                {
+                  "key": "actionledger.mode",
+                  "value": {
+                    "stringValue": "caller-retry"
+                  }
+                },
+                {
+                  "key": "actionledger.scenario",
+                  "value": {
+                    "stringValue": "false-failure"
+                  }
+                }
+              ],
+              "status": {
+                "code": 0
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "33ed4cd51981ef2e8e4d0748a53c0665",
+              "spanId": "bd3c2f2cb620275c",
+              "parentSpanId": "e4273a53bd0878fb",
+              "name": "execute_tool calendar.create",
+              "startTimeUnixNano": "1794931154939000000",
+              "endTimeUnixNano": "1794931154944728600",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "calendar.create"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "500"
+                  }
+                }
+              ],
+              "status": {
+                "code": 2
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "33ed4cd51981ef2e8e4d0748a53c0665",
+              "spanId": "28adc447dde58a86",
+              "parentSpanId": "e4273a53bd0878fb",
+              "name": "execute_tool calendar.create",
+              "startTimeUnixNano": "1794931154946000000",
+              "endTimeUnixNano": "1794931154948460600",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "calendar.create"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "200"
+                  }
+                }
+              ],
+              "status": {
+                "code": 1
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "33ed4cd51981ef2e8e4d0748a53c0665",
+              "spanId": "8cc33ef353b12605",
+              "parentSpanId": "e4273a53bd0878fb",
+              "name": "execute_tool chat.send",
+              "startTimeUnixNano": "1794931154951000000",
+              "endTimeUnixNano": "1794931154952077900",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "chat.send"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "200"
+                  }
+                }
+              ],
+              "status": {
+                "code": 1
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "33ed4cd51981ef2e8e4d0748a53c0665",
+              "spanId": "e4273a53bd0878fb",
+              "name": "actionledger.rehearsal",
+              "startTimeUnixNano": "1794931154922000000",
+              "endTimeUnixNano": "1794931154952836100",
+              "attributes": [
+                {
+                  "key": "actionledger.mode",
+                  "value": {
+                    "stringValue": "guarded"
+                  }
+                },
+                {
+                  "key": "actionledger.scenario",
+                  "value": {
+                    "stringValue": "false-failure"
+                  }
+                }
+              ],
+              "status": {
+                "code": 0
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "014a5486097c682b63a9aad78cc5d5cc",
+              "spanId": "2163219c3f6a2f25",
+              "parentSpanId": "5faff5011dce9423",
+              "name": "execute_tool calendar.create",
+              "startTimeUnixNano": "1794931154969000000",
+              "endTimeUnixNano": "1794931154971247600",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "calendar.create"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "200"
+                  }
+                }
+              ],
+              "status": {
+                "code": 1
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "014a5486097c682b63a9aad78cc5d5cc",
+              "spanId": "30d00c5d9fad8f20",
+              "parentSpanId": "5faff5011dce9423",
+              "name": "execute_tool chat.send",
+              "startTimeUnixNano": "1794931154972000000",
+              "endTimeUnixNano": "1794931154973403400",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "chat.send"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "200"
+                  }
+                }
+              ],
+              "status": {
+                "code": 1
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "014a5486097c682b63a9aad78cc5d5cc",
+              "spanId": "5faff5011dce9423",
+              "name": "actionledger.rehearsal",
+              "startTimeUnixNano": "1794931154956000000",
+              "endTimeUnixNano": "1794931154973079900",
+              "attributes": [
+                {
+                  "key": "actionledger.mode",
+                  "value": {
+                    "stringValue": "caller-retry"
+                  }
+                },
+                {
+                  "key": "actionledger.scenario",
+                  "value": {
+                    "stringValue": "normal"
+                  }
+                }
+              ],
+              "status": {
+                "code": 0
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "7579ee5eebfd4896003ea33d7d7a0d2d",
+              "spanId": "ae12e3a6d6753e0a",
+              "parentSpanId": "8f9c3a41d5dce98b",
+              "name": "execute_tool calendar.create",
+              "startTimeUnixNano": "1794931155004000000",
+              "endTimeUnixNano": "1794931155006545400",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "calendar.create"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "200"
+                  }
+                }
+              ],
+              "status": {
+                "code": 1
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "7579ee5eebfd4896003ea33d7d7a0d2d",
+              "spanId": "1837a6c0d3bcce3b",
+              "parentSpanId": "8f9c3a41d5dce98b",
+              "name": "execute_tool chat.send",
+              "startTimeUnixNano": "1794931155009000000",
+              "endTimeUnixNano": "1794931155011295100",
+              "attributes": [
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "execute_tool"
+                  }
+                },
+                {
+                  "key": "gen_ai.tool.name",
+                  "value": {
+                    "stringValue": "chat.send"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "stringValue": "200"
+                  }
+                }
+              ],
+              "status": {
+                "code": 1
+              },
+              "kind": 1
+            },
+            {
+              "traceId": "7579ee5eebfd4896003ea33d7d7a0d2d",
+              "spanId": "8f9c3a41d5dce98b",
+              "name": "actionledger.rehearsal",
+              "startTimeUnixNano": "1794931154990000000",
+              "endTimeUnixNano": "1794931155012409400",
+              "attributes": [
+                {
+                  "key": "actionledger.mode",
+                  "value": {
+                    "stringValue": "guarded"
+                  }
+                },
+                {
+                  "key": "actionledger.scenario",
+                  "value": {
+                    "stringValue": "normal"
+                  }
+                }
+              ],
+              "status": {
+                "code": 0
+              },
+              "kind": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

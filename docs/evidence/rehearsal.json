@@ -1,0 +1,3735 @@
+{
+  "id": "048e48be-43d7-4308-9ad9-cced5f8b0ae0",
+  "createdAt": "2026-11-17T15:59:15.018Z",
+  "durationMs": 474,
+  "source": "Published @composio/core 0.29.0 → local protocol twin. Synthetic data. Scripted callers; no live provider or LLM.",
+  "scenarios": [
+    {
+      "scenario": {
+        "id": "lost-response",
+        "name": "The response disappeared",
+        "short": "Commit → connection lost → retry?",
+        "description": "The provider stores an event, then the TCP connection closes before the SDK receives a response. The unsafe caller retries; the guarded caller checks durable evidence.",
+        "category": "Recovery",
+        "fault": "disconnect",
+        "verification": true
+      },
+      "baseline": {
+        "mode": "caller-retry",
+        "before": {
+          "events": [
+            {
+              "id": "event-planning",
+              "summary": "Launch planning",
+              "start": "10:00",
+              "etag": "v1",
+              "account": "ca_demo"
+            }
+          ],
+          "messages": [],
+          "writes": 0
+        },
+        "after": {
+          "events": [
+            {
+              "id": "event-planning",
+              "summary": "Launch planning",
+              "start": "10:00",
+              "etag": "v1",
+              "account": "ca_demo"
+            },
+            {
+              "id": "event-2",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            },
+            {
+              "id": "event-3",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          ],
+          "messages": [
+            {
+              "id": "message-1",
+              "account": "ca_demo",
+              "text": "Meeting action confirmed.",
+              "marker": "d68ed353c53c13e143efedfbdc824a8b301aee07608752767d668121f9c5576f",
+              "fingerprint": "bb597a6c510b0bcdb35c95388a3ffc5b140991004ecf605571b22560fd77392e"
+            }
+          ],
+          "writes": 3
+        },
+        "outcomes": [
+          {
+            "state": "COMMITTED",
+            "reason": "Caller received success after retry"
+          },
+          {
+            "state": "COMMITTED",
+            "reason": "Caller received success"
+          }
+        ],
+        "receipts": [],
+        "timeline": [
+          {
+            "sequence": 1,
+            "kind": "request",
+            "title": "POST /calendar/events",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "POST",
+              "endpoint": "/calendar/events",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 2,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/calendar/events · write 1",
+            "level": "info",
+            "data": {
+              "id": "event-2",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          },
+          {
+            "sequence": 3,
+            "kind": "provider",
+            "title": "Response lost after commit",
+            "detail": "TCP socket destroyed after storing the event. The client cannot infer the outcome.",
+            "level": "warn"
+          },
+          {
+            "sequence": 4,
+            "kind": "decision",
+            "title": "Application retries the write",
+            "detail": "Deliberately unsafe comparison policy; this is not SDK automatic retry behavior.",
+            "level": "bad"
+          },
+          {
+            "sequence": 5,
+            "kind": "request",
+            "title": "POST /calendar/events",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "POST",
+              "endpoint": "/calendar/events",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 6,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/calendar/events · write 2",
+            "level": "info",
+            "data": {
+              "id": "event-3",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          },
+          {
+            "sequence": 7,
+            "kind": "request",
+            "title": "POST /chat/messages",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "POST",
+              "endpoint": "/chat/messages",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 8,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/chat/messages · write 3",
+            "level": "info",
+            "data": {
+              "id": "message-1",
+              "account": "ca_demo",
+              "text": "Meeting action confirmed.",
+              "marker": "d68ed353c53c13e143efedfbdc824a8b301aee07608752767d668121f9c5576f",
+              "fingerprint": "bb597a6c510b0bcdb35c95388a3ffc5b140991004ecf605571b22560fd77392e"
+            }
+          }
+        ],
+        "invariants": [
+          {
+            "id": "one-effect",
+            "label": "One intent produces at most one meeting",
+            "passed": false,
+            "observed": "2 new meeting(s)"
+          },
+          {
+            "id": "account",
+            "label": "No writes to an unauthorized account",
+            "passed": true,
+            "observed": "0 foreign-account event(s)"
+          }
+        ],
+        "sdkRequests": 3,
+        "spans": [
+          {
+            "traceId": "c6021c1715b84a2e21a381e4a7da3f27",
+            "spanId": "3edd9f71759b25d9",
+            "parentSpanId": "0976e2afc4d50469",
+            "name": "execute_tool calendar.create",
+            "startTimeUnixNano": "1794931154586000000",
+            "endTimeUnixNano": "1794931154608474200",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "calendar.create",
+              "error.type": "Error"
+            },
+            "status": 2
+          },
+          {
+            "traceId": "c6021c1715b84a2e21a381e4a7da3f27",
+            "spanId": "84da559ff85cf012",
+            "parentSpanId": "0976e2afc4d50469",
+            "name": "execute_tool calendar.create",
+            "startTimeUnixNano": "1794931154609000000",
+            "endTimeUnixNano": "1794931154619306200",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "calendar.create",
+              "http.response.status_code": 200
+            },
+            "status": 1
+          },
+          {
+            "traceId": "c6021c1715b84a2e21a381e4a7da3f27",
+            "spanId": "a0e90bb8470a283f",
+            "parentSpanId": "0976e2afc4d50469",
+            "name": "execute_tool chat.send",
+            "startTimeUnixNano": "1794931154619000000",
+            "endTimeUnixNano": "1794931154623348800",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "chat.send",
+              "http.response.status_code": 200
+            },
+            "status": 1
+          },
+          {
+            "traceId": "c6021c1715b84a2e21a381e4a7da3f27",
+            "spanId": "0976e2afc4d50469",
+            "name": "actionledger.rehearsal",
+            "startTimeUnixNano": "1794931154552000000",
+            "endTimeUnixNano": "1794931154623586600",
+            "attributes": {
+              "actionledger.mode": "caller-retry",
+              "actionledger.scenario": "lost-response"
+            },
+            "status": 0
+          }
+        ]
+      },
+      "guarded": {
+        "mode": "guarded",
+        "before": {
+          "events": [
+            {
+              "id": "event-planning",
+              "summary": "Launch planning",
+              "start": "10:00",
+              "etag": "v1",
+              "account": "ca_demo"
+            }
+          ],
+          "messages": [],
+          "writes": 0
+        },
+        "after": {
+          "events": [
+            {
+              "id": "event-planning",
+              "summary": "Launch planning",
+              "start": "10:00",
+              "etag": "v1",
+              "account": "ca_demo"
+            },
+            {
+              "id": "event-2",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          ],
+          "messages": [
+            {
+              "id": "message-1",
+              "account": "ca_demo",
+              "text": "Meeting action confirmed.",
+              "marker": "d68ed353c53c13e143efedfbdc824a8b301aee07608752767d668121f9c5576f",
+              "fingerprint": "bb597a6c510b0bcdb35c95388a3ffc5b140991004ecf605571b22560fd77392e"
+            }
+          ],
+          "writes": 2
+        },
+        "outcomes": [
+          {
+            "state": "COMMITTED",
+            "reason": "One matching provider record verified by intent, fingerprint and account"
+          },
+          {
+            "state": "COMMITTED",
+            "reason": "Provider acknowledged a durable resource"
+          }
+        ],
+        "receipts": [
+          {
+            "key": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+            "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835",
+            "state": "COMMITTED",
+            "action": {
+              "tenant": "workspace_demo",
+              "actor": "agent_scheduler",
+              "intent": "schedule-launch-001",
+              "account": "ca_demo",
+              "tool": "calendar.create",
+              "version": "fixture-calendar-v1",
+              "arguments": {
+                "summary": "Launch planning",
+                "start": "14:00"
+              }
+            },
+            "result": {
+              "id": "event-2",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            },
+            "reason": "One matching provider record verified by intent, fingerprint and account",
+            "createdAt": "2026-11-17T15:59:14.640Z",
+            "updatedAt": "2026-11-17T15:59:14.650Z"
+          },
+          {
+            "key": "d68ed353c53c13e143efedfbdc824a8b301aee07608752767d668121f9c5576f",
+            "fingerprint": "bb597a6c510b0bcdb35c95388a3ffc5b140991004ecf605571b22560fd77392e",
+            "state": "COMMITTED",
+            "action": {
+              "tenant": "workspace_demo",
+              "actor": "agent_scheduler",
+              "intent": "schedule-launch-001/notify",
+              "account": "ca_demo",
+              "tool": "chat.send",
+              "version": "fixture-chat-v1",
+              "arguments": {
+                "text": "Meeting action confirmed."
+              }
+            },
+            "result": {
+              "id": "message-1",
+              "account": "ca_demo",
+              "text": "Meeting action confirmed.",
+              "marker": "d68ed353c53c13e143efedfbdc824a8b301aee07608752767d668121f9c5576f",
+              "fingerprint": "bb597a6c510b0bcdb35c95388a3ffc5b140991004ecf605571b22560fd77392e"
+            },
+            "reason": "Provider acknowledged a durable resource",
+            "createdAt": "2026-11-17T15:59:14.652Z",
+            "updatedAt": "2026-11-17T15:59:14.656Z"
+          }
+        ],
+        "timeline": [
+          {
+            "sequence": 1,
+            "kind": "ledger",
+            "title": "Intent durably claimed",
+            "detail": "SQLite committed IN_FLIGHT before the SDK call.",
+            "level": "info",
+            "data": {
+              "key": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          },
+          {
+            "sequence": 2,
+            "kind": "request",
+            "title": "POST /calendar/events",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "POST",
+              "endpoint": "/calendar/events",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 3,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/calendar/events · write 1",
+            "level": "info",
+            "data": {
+              "id": "event-2",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          },
+          {
+            "sequence": 4,
+            "kind": "provider",
+            "title": "Response lost after commit",
+            "detail": "TCP socket destroyed after storing the event. The client cannot infer the outcome.",
+            "level": "warn"
+          },
+          {
+            "sequence": 5,
+            "kind": "ledger",
+            "title": "Outcome marked UNKNOWN",
+            "detail": "Outcome uncertain; repeating the mutation is unsafe",
+            "level": "warn"
+          },
+          {
+            "sequence": 6,
+            "kind": "request",
+            "title": "GET /calendar/events",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "GET",
+              "endpoint": "/calendar/events",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 7,
+            "kind": "decision",
+            "title": "Reconciled from provider evidence",
+            "detail": "Exactly one matching durable record. No mutation retry.",
+            "level": "good",
+            "data": {
+              "key": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9"
+            }
+          },
+          {
+            "sequence": 8,
+            "kind": "ledger",
+            "title": "Intent durably claimed",
+            "detail": "SQLite committed IN_FLIGHT before the SDK call.",
+            "level": "info",
+            "data": {
+              "key": "d68ed353c53c13e143efedfbdc824a8b301aee07608752767d668121f9c5576f",
+              "fingerprint": "bb597a6c510b0bcdb35c95388a3ffc5b140991004ecf605571b22560fd77392e"
+            }
+          },
+          {
+            "sequence": 9,
+            "kind": "request",
+            "title": "POST /chat/messages",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "POST",
+              "endpoint": "/chat/messages",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 10,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/chat/messages · write 2",
+            "level": "info",
+            "data": {
+              "id": "message-1",
+              "account": "ca_demo",
+              "text": "Meeting action confirmed.",
+              "marker": "d68ed353c53c13e143efedfbdc824a8b301aee07608752767d668121f9c5576f",
+              "fingerprint": "bb597a6c510b0bcdb35c95388a3ffc5b140991004ecf605571b22560fd77392e"
+            }
+          },
+          {
+            "sequence": 11,
+            "kind": "ledger",
+            "title": "Receipt committed",
+            "detail": "The result is stored for repeat callers.",
+            "level": "good"
+          }
+        ],
+        "invariants": [
+          {
+            "id": "one-effect",
+            "label": "One intent produces at most one meeting",
+            "passed": true,
+            "observed": "1 new meeting(s)"
+          },
+          {
+            "id": "account",
+            "label": "No writes to an unauthorized account",
+            "passed": true,
+            "observed": "0 foreign-account event(s)"
+          }
+        ],
+        "sdkRequests": 3,
+        "spans": [
+          {
+            "traceId": "a22e6e081128aed82965f934aa8eb325",
+            "spanId": "d94cf6b500c2b6e6",
+            "parentSpanId": "795be33ddf6869c2",
+            "name": "execute_tool calendar.create",
+            "startTimeUnixNano": "1794931154642000000",
+            "endTimeUnixNano": "1794931154645989300",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "calendar.create",
+              "error.type": "Error"
+            },
+            "status": 2
+          },
+          {
+            "traceId": "a22e6e081128aed82965f934aa8eb325",
+            "spanId": "9d8d6888e9fa88e9",
+            "parentSpanId": "795be33ddf6869c2",
+            "name": "execute_tool calendar.create",
+            "startTimeUnixNano": "1794931154647000000",
+            "endTimeUnixNano": "1794931154649821500",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "calendar.create",
+              "http.response.status_code": 200
+            },
+            "status": 1
+          },
+          {
+            "traceId": "a22e6e081128aed82965f934aa8eb325",
+            "spanId": "d8af8f59426868e6",
+            "parentSpanId": "795be33ddf6869c2",
+            "name": "execute_tool chat.send",
+            "startTimeUnixNano": "1794931154653000000",
+            "endTimeUnixNano": "1794931154655574400",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "chat.send",
+              "http.response.status_code": 200
+            },
+            "status": 1
+          },
+          {
+            "traceId": "a22e6e081128aed82965f934aa8eb325",
+            "spanId": "795be33ddf6869c2",
+            "name": "actionledger.rehearsal",
+            "startTimeUnixNano": "1794931154628000000",
+            "endTimeUnixNano": "1794931154656621500",
+            "attributes": {
+              "actionledger.mode": "guarded",
+              "actionledger.scenario": "lost-response"
+            },
+            "status": 0
+          }
+        ]
+      }
+    },
+    {
+      "scenario": {
+        "id": "unverifiable",
+        "name": "No evidence to trust",
+        "short": "Unknown must stay unknown",
+        "description": "The same connection loss, with no reconciliation capability. ActionLedger holds the action and its dependent notification. Safety is preserved; the task is not completed.",
+        "category": "Recovery",
+        "fault": "disconnect",
+        "verification": false
+      },
+      "baseline": {
+        "mode": "caller-retry",
+        "before": {
+          "events": [
+            {
+              "id": "event-planning",
+              "summary": "Launch planning",
+              "start": "10:00",
+              "etag": "v1",
+              "account": "ca_demo"
+            }
+          ],
+          "messages": [],
+          "writes": 0
+        },
+        "after": {
+          "events": [
+            {
+              "id": "event-planning",
+              "summary": "Launch planning",
+              "start": "10:00",
+              "etag": "v1",
+              "account": "ca_demo"
+            },
+            {
+              "id": "event-2",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            },
+            {
+              "id": "event-3",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          ],
+          "messages": [
+            {
+              "id": "message-1",
+              "account": "ca_demo",
+              "text": "Meeting action confirmed.",
+              "marker": "d68ed353c53c13e143efedfbdc824a8b301aee07608752767d668121f9c5576f",
+              "fingerprint": "bb597a6c510b0bcdb35c95388a3ffc5b140991004ecf605571b22560fd77392e"
+            }
+          ],
+          "writes": 3
+        },
+        "outcomes": [
+          {
+            "state": "COMMITTED",
+            "reason": "Caller received success after retry"
+          },
+          {
+            "state": "COMMITTED",
+            "reason": "Caller received success"
+          }
+        ],
+        "receipts": [],
+        "timeline": [
+          {
+            "sequence": 1,
+            "kind": "request",
+            "title": "POST /calendar/events",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "POST",
+              "endpoint": "/calendar/events",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 2,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/calendar/events · write 1",
+            "level": "info",
+            "data": {
+              "id": "event-2",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          },
+          {
+            "sequence": 3,
+            "kind": "provider",
+            "title": "Response lost after commit",
+            "detail": "TCP socket destroyed after storing the event. The client cannot infer the outcome.",
+            "level": "warn"
+          },
+          {
+            "sequence": 4,
+            "kind": "decision",
+            "title": "Application retries the write",
+            "detail": "Deliberately unsafe comparison policy; this is not SDK automatic retry behavior.",
+            "level": "bad"
+          },
+          {
+            "sequence": 5,
+            "kind": "request",
+            "title": "POST /calendar/events",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "POST",
+              "endpoint": "/calendar/events",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 6,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/calendar/events · write 2",
+            "level": "info",
+            "data": {
+              "id": "event-3",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          },
+          {
+            "sequence": 7,
+            "kind": "request",
+            "title": "POST /chat/messages",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "POST",
+              "endpoint": "/chat/messages",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 8,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/chat/messages · write 3",
+            "level": "info",
+            "data": {
+              "id": "message-1",
+              "account": "ca_demo",
+              "text": "Meeting action confirmed.",
+              "marker": "d68ed353c53c13e143efedfbdc824a8b301aee07608752767d668121f9c5576f",
+              "fingerprint": "bb597a6c510b0bcdb35c95388a3ffc5b140991004ecf605571b22560fd77392e"
+            }
+          }
+        ],
+        "invariants": [
+          {
+            "id": "one-effect",
+            "label": "One intent produces at most one meeting",
+            "passed": false,
+            "observed": "2 new meeting(s)"
+          },
+          {
+            "id": "account",
+            "label": "No writes to an unauthorized account",
+            "passed": true,
+            "observed": "0 foreign-account event(s)"
+          },
+          {
+            "id": "held",
+            "label": "No notification without a verified unique outcome",
+            "passed": false,
+            "observed": "1 notification(s); COMMITTED"
+          }
+        ],
+        "sdkRequests": 3,
+        "spans": [
+          {
+            "traceId": "080496eb41f02b5fdb12df2519887706",
+            "spanId": "256dd5cf20e17838",
+            "parentSpanId": "9be07602e638d67f",
+            "name": "execute_tool calendar.create",
+            "startTimeUnixNano": "1794931154676000000",
+            "endTimeUnixNano": "1794931154679305500",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "calendar.create",
+              "error.type": "Error"
+            },
+            "status": 2
+          },
+          {
+            "traceId": "080496eb41f02b5fdb12df2519887706",
+            "spanId": "3d6516714fc91ea4",
+            "parentSpanId": "9be07602e638d67f",
+            "name": "execute_tool calendar.create",
+            "startTimeUnixNano": "1794931154680000000",
+            "endTimeUnixNano": "1794931154682256800",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "calendar.create",
+              "http.response.status_code": 200
+            },
+            "status": 1
+          },
+          {
+            "traceId": "080496eb41f02b5fdb12df2519887706",
+            "spanId": "f0ed310431136b1c",
+            "parentSpanId": "9be07602e638d67f",
+            "name": "execute_tool chat.send",
+            "startTimeUnixNano": "1794931154682000000",
+            "endTimeUnixNano": "1794931154684863800",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "chat.send",
+              "http.response.status_code": 200
+            },
+            "status": 1
+          },
+          {
+            "traceId": "080496eb41f02b5fdb12df2519887706",
+            "spanId": "9be07602e638d67f",
+            "name": "actionledger.rehearsal",
+            "startTimeUnixNano": "1794931154660000000",
+            "endTimeUnixNano": "1794931154684921300",
+            "attributes": {
+              "actionledger.mode": "caller-retry",
+              "actionledger.scenario": "unverifiable"
+            },
+            "status": 0
+          }
+        ]
+      },
+      "guarded": {
+        "mode": "guarded",
+        "before": {
+          "events": [
+            {
+              "id": "event-planning",
+              "summary": "Launch planning",
+              "start": "10:00",
+              "etag": "v1",
+              "account": "ca_demo"
+            }
+          ],
+          "messages": [],
+          "writes": 0
+        },
+        "after": {
+          "events": [
+            {
+              "id": "event-planning",
+              "summary": "Launch planning",
+              "start": "10:00",
+              "etag": "v1",
+              "account": "ca_demo"
+            },
+            {
+              "id": "event-2",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          ],
+          "messages": [],
+          "writes": 1
+        },
+        "outcomes": [
+          {
+            "state": "UNKNOWN",
+            "reason": "Outcome uncertain; repeating the mutation is unsafe"
+          }
+        ],
+        "receipts": [
+          {
+            "key": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+            "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835",
+            "state": "UNKNOWN",
+            "action": {
+              "tenant": "workspace_demo",
+              "actor": "agent_scheduler",
+              "intent": "schedule-launch-001",
+              "account": "ca_demo",
+              "tool": "calendar.create",
+              "version": "fixture-calendar-v1",
+              "arguments": {
+                "summary": "Launch planning",
+                "start": "14:00"
+              }
+            },
+            "result": null,
+            "reason": "Outcome uncertain; repeating the mutation is unsafe",
+            "createdAt": "2026-11-17T15:59:14.703Z",
+            "updatedAt": "2026-11-17T15:59:14.709Z"
+          }
+        ],
+        "timeline": [
+          {
+            "sequence": 1,
+            "kind": "ledger",
+            "title": "Intent durably claimed",
+            "detail": "SQLite committed IN_FLIGHT before the SDK call.",
+            "level": "info",
+            "data": {
+              "key": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          },
+          {
+            "sequence": 2,
+            "kind": "request",
+            "title": "POST /calendar/events",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "POST",
+              "endpoint": "/calendar/events",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 3,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/calendar/events · write 1",
+            "level": "info",
+            "data": {
+              "id": "event-2",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          },
+          {
+            "sequence": 4,
+            "kind": "provider",
+            "title": "Response lost after commit",
+            "detail": "TCP socket destroyed after storing the event. The client cannot infer the outcome.",
+            "level": "warn"
+          },
+          {
+            "sequence": 5,
+            "kind": "ledger",
+            "title": "Outcome marked UNKNOWN",
+            "detail": "Outcome uncertain; repeating the mutation is unsafe",
+            "level": "warn"
+          },
+          {
+            "sequence": 6,
+            "kind": "decision",
+            "title": "Dependent notification held",
+            "detail": "An uncertain or rejected meeting action cannot release the notification.",
+            "level": "warn"
+          }
+        ],
+        "invariants": [
+          {
+            "id": "one-effect",
+            "label": "One intent produces at most one meeting",
+            "passed": true,
+            "observed": "1 new meeting(s)"
+          },
+          {
+            "id": "account",
+            "label": "No writes to an unauthorized account",
+            "passed": true,
+            "observed": "0 foreign-account event(s)"
+          },
+          {
+            "id": "held",
+            "label": "No notification without a verified unique outcome",
+            "passed": true,
+            "observed": "0 notification(s); UNKNOWN"
+          }
+        ],
+        "sdkRequests": 1,
+        "spans": [
+          {
+            "traceId": "2c3c154e3cbbb0575940c693ea5cef1f",
+            "spanId": "28616336dbd2b633",
+            "parentSpanId": "b07b76e33b0ffd74",
+            "name": "execute_tool calendar.create",
+            "startTimeUnixNano": "1794931154705000000",
+            "endTimeUnixNano": "1794931154708732900",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "calendar.create",
+              "error.type": "Error"
+            },
+            "status": 2
+          },
+          {
+            "traceId": "2c3c154e3cbbb0575940c693ea5cef1f",
+            "spanId": "b07b76e33b0ffd74",
+            "name": "actionledger.rehearsal",
+            "startTimeUnixNano": "1794931154690000000",
+            "endTimeUnixNano": "1794931154709373100",
+            "attributes": {
+              "actionledger.mode": "guarded",
+              "actionledger.scenario": "unverifiable"
+            },
+            "status": 0
+          }
+        ]
+      }
+    },
+    {
+      "scenario": {
+        "id": "stale-write",
+        "name": "A human changed the plan",
+        "short": "Protect an intervening edit",
+        "description": "An agent reads v1. A human writes v2. An unconditional update overwrites the human; a conditional update using If-Match is rejected with 412.",
+        "category": "Concurrency",
+        "fault": "stale",
+        "verification": false
+      },
+      "baseline": {
+        "mode": "caller-retry",
+        "before": {
+          "events": [
+            {
+              "id": "event-planning",
+              "summary": "Launch planning",
+              "start": "10:00",
+              "etag": "v1",
+              "account": "ca_demo"
+            }
+          ],
+          "messages": [],
+          "writes": 0
+        },
+        "after": {
+          "events": [
+            {
+              "id": "event-planning",
+              "summary": "Agent rescheduled planning",
+              "start": "14:00",
+              "etag": "v3",
+              "account": "ca_demo"
+            }
+          ],
+          "messages": [
+            {
+              "id": "message-1",
+              "account": "ca_demo",
+              "text": "Meeting action confirmed.",
+              "marker": "d68ed353c53c13e143efedfbdc824a8b301aee07608752767d668121f9c5576f",
+              "fingerprint": "bb597a6c510b0bcdb35c95388a3ffc5b140991004ecf605571b22560fd77392e"
+            }
+          ],
+          "writes": 2
+        },
+        "outcomes": [
+          {
+            "state": "COMMITTED",
+            "reason": "Caller received success"
+          },
+          {
+            "state": "COMMITTED",
+            "reason": "Caller received success"
+          }
+        ],
+        "receipts": [],
+        "timeline": [
+          {
+            "sequence": 1,
+            "kind": "request",
+            "title": "GET /calendar/events/event-planning",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "GET",
+              "endpoint": "/calendar/events/event-planning",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 2,
+            "kind": "provider",
+            "title": "Human edited the event",
+            "detail": "A separate actor committed version v2 after the agent read v1.",
+            "level": "warn"
+          },
+          {
+            "sequence": 3,
+            "kind": "request",
+            "title": "PATCH /calendar/events/event-planning",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "PATCH",
+              "endpoint": "/calendar/events/event-planning",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 4,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/calendar/events/event-planning · write 1",
+            "level": "info",
+            "data": {
+              "id": "event-planning",
+              "summary": "Agent rescheduled planning",
+              "start": "14:00",
+              "etag": "v3",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 5,
+            "kind": "request",
+            "title": "POST /chat/messages",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "POST",
+              "endpoint": "/chat/messages",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 6,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/chat/messages · write 2",
+            "level": "info",
+            "data": {
+              "id": "message-1",
+              "account": "ca_demo",
+              "text": "Meeting action confirmed.",
+              "marker": "d68ed353c53c13e143efedfbdc824a8b301aee07608752767d668121f9c5576f",
+              "fingerprint": "bb597a6c510b0bcdb35c95388a3ffc5b140991004ecf605571b22560fd77392e"
+            }
+          }
+        ],
+        "invariants": [
+          {
+            "id": "one-effect",
+            "label": "One intent produces at most one meeting",
+            "passed": true,
+            "observed": "0 new meeting(s)"
+          },
+          {
+            "id": "account",
+            "label": "No writes to an unauthorized account",
+            "passed": true,
+            "observed": "0 foreign-account event(s)"
+          },
+          {
+            "id": "human-edit",
+            "label": "The newer human edit survives",
+            "passed": false,
+            "observed": "Current start 14:00; human chose 11:00"
+          }
+        ],
+        "sdkRequests": 3,
+        "spans": [
+          {
+            "traceId": "3ad6867aaabffa659d03361a9c2cf357",
+            "spanId": "0c45421ad49dac89",
+            "parentSpanId": "a54c88ada2a2d1b8",
+            "name": "execute_tool calendar.patch",
+            "startTimeUnixNano": "1794931154726000000",
+            "endTimeUnixNano": "1794931154728921800",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "calendar.patch",
+              "http.response.status_code": 200
+            },
+            "status": 1
+          },
+          {
+            "traceId": "3ad6867aaabffa659d03361a9c2cf357",
+            "spanId": "3402d7d93f40d5bf",
+            "parentSpanId": "a54c88ada2a2d1b8",
+            "name": "execute_tool calendar.patch",
+            "startTimeUnixNano": "1794931154729000000",
+            "endTimeUnixNano": "1794931154731521000",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "calendar.patch",
+              "http.response.status_code": 200
+            },
+            "status": 1
+          },
+          {
+            "traceId": "3ad6867aaabffa659d03361a9c2cf357",
+            "spanId": "7089a4f785cd3394",
+            "parentSpanId": "a54c88ada2a2d1b8",
+            "name": "execute_tool chat.send",
+            "startTimeUnixNano": "1794931154732000000",
+            "endTimeUnixNano": "1794931154733798000",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "chat.send",
+              "http.response.status_code": 200
+            },
+            "status": 1
+          },
+          {
+            "traceId": "3ad6867aaabffa659d03361a9c2cf357",
+            "spanId": "a54c88ada2a2d1b8",
+            "name": "actionledger.rehearsal",
+            "startTimeUnixNano": "1794931154714000000",
+            "endTimeUnixNano": "1794931154733772600",
+            "attributes": {
+              "actionledger.mode": "caller-retry",
+              "actionledger.scenario": "stale-write"
+            },
+            "status": 0
+          }
+        ]
+      },
+      "guarded": {
+        "mode": "guarded",
+        "before": {
+          "events": [
+            {
+              "id": "event-planning",
+              "summary": "Launch planning",
+              "start": "10:00",
+              "etag": "v1",
+              "account": "ca_demo"
+            }
+          ],
+          "messages": [],
+          "writes": 0
+        },
+        "after": {
+          "events": [
+            {
+              "id": "event-planning",
+              "summary": "Human-approved planning",
+              "start": "11:00",
+              "etag": "v2",
+              "account": "ca_demo"
+            }
+          ],
+          "messages": [],
+          "writes": 0
+        },
+        "outcomes": [
+          {
+            "state": "REJECTED",
+            "reason": "Version changed; re-read and obtain a new decision before editing"
+          }
+        ],
+        "receipts": [
+          {
+            "key": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+            "fingerprint": "d2b2b1c550b8a8c834961613298ff01bea18709723ba13148c10572aa402e6ec",
+            "state": "REJECTED",
+            "action": {
+              "tenant": "workspace_demo",
+              "actor": "agent_scheduler",
+              "intent": "schedule-launch-001",
+              "account": "ca_demo",
+              "tool": "calendar.patch",
+              "version": "fixture-calendar-v1",
+              "arguments": {
+                "id": "event-planning",
+                "summary": "Agent rescheduled planning",
+                "start": "14:00"
+              },
+              "expectedVersion": "v1"
+            },
+            "result": null,
+            "reason": "Version changed; re-read and obtain a new decision before editing",
+            "createdAt": "2026-11-17T15:59:14.756Z",
+            "updatedAt": "2026-11-17T15:59:14.759Z"
+          }
+        ],
+        "timeline": [
+          {
+            "sequence": 1,
+            "kind": "request",
+            "title": "GET /calendar/events/event-planning",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "GET",
+              "endpoint": "/calendar/events/event-planning",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 2,
+            "kind": "provider",
+            "title": "Human edited the event",
+            "detail": "A separate actor committed version v2 after the agent read v1.",
+            "level": "warn"
+          },
+          {
+            "sequence": 3,
+            "kind": "ledger",
+            "title": "Intent durably claimed",
+            "detail": "SQLite committed IN_FLIGHT before the SDK call.",
+            "level": "info",
+            "data": {
+              "key": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "d2b2b1c550b8a8c834961613298ff01bea18709723ba13148c10572aa402e6ec"
+            }
+          },
+          {
+            "sequence": 4,
+            "kind": "request",
+            "title": "PATCH /calendar/events/event-planning",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "PATCH",
+              "endpoint": "/calendar/events/event-planning",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 5,
+            "kind": "provider",
+            "title": "Precondition rejected",
+            "detail": "Expected \"v1\"; current version is v2. No mutation.",
+            "level": "good"
+          },
+          {
+            "sequence": 6,
+            "kind": "ledger",
+            "title": "Update rejected safely",
+            "detail": "Version changed; re-read and obtain a new decision before editing",
+            "level": "warn"
+          },
+          {
+            "sequence": 7,
+            "kind": "decision",
+            "title": "Dependent notification held",
+            "detail": "An uncertain or rejected meeting action cannot release the notification.",
+            "level": "warn"
+          }
+        ],
+        "invariants": [
+          {
+            "id": "one-effect",
+            "label": "One intent produces at most one meeting",
+            "passed": true,
+            "observed": "0 new meeting(s)"
+          },
+          {
+            "id": "account",
+            "label": "No writes to an unauthorized account",
+            "passed": true,
+            "observed": "0 foreign-account event(s)"
+          },
+          {
+            "id": "human-edit",
+            "label": "The newer human edit survives",
+            "passed": true,
+            "observed": "Current start 11:00; human chose 11:00"
+          }
+        ],
+        "sdkRequests": 2,
+        "spans": [
+          {
+            "traceId": "297e69f73fbf9fcd3895745c9cf1d337",
+            "spanId": "f93aa2ba45782e41",
+            "parentSpanId": "22fc35aff04504ae",
+            "name": "execute_tool calendar.patch",
+            "startTimeUnixNano": "1794931154753000000",
+            "endTimeUnixNano": "1794931154755816700",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "calendar.patch",
+              "http.response.status_code": 200
+            },
+            "status": 1
+          },
+          {
+            "traceId": "297e69f73fbf9fcd3895745c9cf1d337",
+            "spanId": "8a7fb4700d431844",
+            "parentSpanId": "22fc35aff04504ae",
+            "name": "execute_tool calendar.patch",
+            "startTimeUnixNano": "1794931154757000000",
+            "endTimeUnixNano": "1794931154758904300",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "calendar.patch",
+              "http.response.status_code": 412
+            },
+            "status": 2
+          },
+          {
+            "traceId": "297e69f73fbf9fcd3895745c9cf1d337",
+            "spanId": "22fc35aff04504ae",
+            "name": "actionledger.rehearsal",
+            "startTimeUnixNano": "1794931154739000000",
+            "endTimeUnixNano": "1794931154760347800",
+            "attributes": {
+              "actionledger.mode": "guarded",
+              "actionledger.scenario": "stale-write"
+            },
+            "status": 0
+          }
+        ]
+      }
+    },
+    {
+      "scenario": {
+        "id": "concurrent",
+        "name": "Eight callers, one intent",
+        "short": "Race for the same action",
+        "description": "Eight concurrent invocations share an intent. An atomic SQLite claim grants only one writer. Other callers receive a pending or committed receipt.",
+        "category": "Concurrency",
+        "fault": "none",
+        "verification": true
+      },
+      "baseline": {
+        "mode": "caller-retry",
+        "before": {
+          "events": [
+            {
+              "id": "event-planning",
+              "summary": "Launch planning",
+              "start": "10:00",
+              "etag": "v1",
+              "account": "ca_demo"
+            }
+          ],
+          "messages": [],
+          "writes": 0
+        },
+        "after": {
+          "events": [
+            {
+              "id": "event-planning",
+              "summary": "Launch planning",
+              "start": "10:00",
+              "etag": "v1",
+              "account": "ca_demo"
+            },
+            {
+              "id": "event-2",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            },
+            {
+              "id": "event-3",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            },
+            {
+              "id": "event-4",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            },
+            {
+              "id": "event-5",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            },
+            {
+              "id": "event-6",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            },
+            {
+              "id": "event-7",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            },
+            {
+              "id": "event-8",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            },
+            {
+              "id": "event-9",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          ],
+          "messages": [],
+          "writes": 8
+        },
+        "outcomes": [
+          {
+            "state": "COMMITTED",
+            "reason": "Caller received success"
+          },
+          {
+            "state": "COMMITTED",
+            "reason": "Caller received success"
+          },
+          {
+            "state": "COMMITTED",
+            "reason": "Caller received success"
+          },
+          {
+            "state": "COMMITTED",
+            "reason": "Caller received success"
+          },
+          {
+            "state": "COMMITTED",
+            "reason": "Caller received success"
+          },
+          {
+            "state": "COMMITTED",
+            "reason": "Caller received success"
+          },
+          {
+            "state": "COMMITTED",
+            "reason": "Caller received success"
+          },
+          {
+            "state": "COMMITTED",
+            "reason": "Caller received success"
+          }
+        ],
+        "receipts": [],
+        "timeline": [
+          {
+            "sequence": 1,
+            "kind": "request",
+            "title": "POST /calendar/events",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "POST",
+              "endpoint": "/calendar/events",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 2,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/calendar/events · write 1",
+            "level": "info",
+            "data": {
+              "id": "event-2",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          },
+          {
+            "sequence": 3,
+            "kind": "request",
+            "title": "POST /calendar/events",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "POST",
+              "endpoint": "/calendar/events",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 4,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/calendar/events · write 2",
+            "level": "info",
+            "data": {
+              "id": "event-3",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          },
+          {
+            "sequence": 5,
+            "kind": "request",
+            "title": "POST /calendar/events",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "POST",
+              "endpoint": "/calendar/events",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 6,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/calendar/events · write 3",
+            "level": "info",
+            "data": {
+              "id": "event-4",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          },
+          {
+            "sequence": 7,
+            "kind": "request",
+            "title": "POST /calendar/events",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "POST",
+              "endpoint": "/calendar/events",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 8,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/calendar/events · write 4",
+            "level": "info",
+            "data": {
+              "id": "event-5",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          },
+          {
+            "sequence": 9,
+            "kind": "request",
+            "title": "POST /calendar/events",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "POST",
+              "endpoint": "/calendar/events",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 10,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/calendar/events · write 5",
+            "level": "info",
+            "data": {
+              "id": "event-6",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          },
+          {
+            "sequence": 11,
+            "kind": "request",
+            "title": "POST /calendar/events",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "POST",
+              "endpoint": "/calendar/events",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 12,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/calendar/events · write 6",
+            "level": "info",
+            "data": {
+              "id": "event-7",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          },
+          {
+            "sequence": 13,
+            "kind": "request",
+            "title": "POST /calendar/events",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "POST",
+              "endpoint": "/calendar/events",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 14,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/calendar/events · write 7",
+            "level": "info",
+            "data": {
+              "id": "event-8",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          },
+          {
+            "sequence": 15,
+            "kind": "request",
+            "title": "POST /calendar/events",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "POST",
+              "endpoint": "/calendar/events",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 16,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/calendar/events · write 8",
+            "level": "info",
+            "data": {
+              "id": "event-9",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          }
+        ],
+        "invariants": [
+          {
+            "id": "one-effect",
+            "label": "One intent produces at most one meeting",
+            "passed": false,
+            "observed": "8 new meeting(s)"
+          },
+          {
+            "id": "account",
+            "label": "No writes to an unauthorized account",
+            "passed": true,
+            "observed": "0 foreign-account event(s)"
+          }
+        ],
+        "sdkRequests": 8,
+        "spans": [
+          {
+            "traceId": "6caf2c3ad81128235f148fd7acd07257",
+            "spanId": "0b83dff01e930b73",
+            "parentSpanId": "d4da1ca7a541eef9",
+            "name": "execute_tool calendar.create",
+            "startTimeUnixNano": "1794931154776000000",
+            "endTimeUnixNano": "1794931154786786800",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "calendar.create",
+              "http.response.status_code": 200
+            },
+            "status": 1
+          },
+          {
+            "traceId": "6caf2c3ad81128235f148fd7acd07257",
+            "spanId": "46fa15c28fa9a3f1",
+            "parentSpanId": "d4da1ca7a541eef9",
+            "name": "execute_tool calendar.create",
+            "startTimeUnixNano": "1794931154778000000",
+            "endTimeUnixNano": "1794931154787775200",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "calendar.create",
+              "http.response.status_code": 200
+            },
+            "status": 1
+          },
+          {
+            "traceId": "6caf2c3ad81128235f148fd7acd07257",
+            "spanId": "384710deb321382a",
+            "parentSpanId": "d4da1ca7a541eef9",
+            "name": "execute_tool calendar.create",
+            "startTimeUnixNano": "1794931154779000000",
+            "endTimeUnixNano": "1794931154788644400",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "calendar.create",
+              "http.response.status_code": 200
+            },
+            "status": 1
+          },
+          {
+            "traceId": "6caf2c3ad81128235f148fd7acd07257",
+            "spanId": "9b94b821e0a40790",
+            "parentSpanId": "d4da1ca7a541eef9",
+            "name": "execute_tool calendar.create",
+            "startTimeUnixNano": "1794931154779000000",
+            "endTimeUnixNano": "1794931154788492800",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "calendar.create",
+              "http.response.status_code": 200
+            },
+            "status": 1
+          },
+          {
+            "traceId": "6caf2c3ad81128235f148fd7acd07257",
+            "spanId": "5f87529548a43413",
+            "parentSpanId": "d4da1ca7a541eef9",
+            "name": "execute_tool calendar.create",
+            "startTimeUnixNano": "1794931154777000000",
+            "endTimeUnixNano": "1794931154788807900",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "calendar.create",
+              "http.response.status_code": 200
+            },
+            "status": 1
+          },
+          {
+            "traceId": "6caf2c3ad81128235f148fd7acd07257",
+            "spanId": "9600ab0231ccb7de",
+            "parentSpanId": "d4da1ca7a541eef9",
+            "name": "execute_tool calendar.create",
+            "startTimeUnixNano": "1794931154777000000",
+            "endTimeUnixNano": "1794931154788717700",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "calendar.create",
+              "http.response.status_code": 200
+            },
+            "status": 1
+          },
+          {
+            "traceId": "6caf2c3ad81128235f148fd7acd07257",
+            "spanId": "c939e8009e2837b1",
+            "parentSpanId": "d4da1ca7a541eef9",
+            "name": "execute_tool calendar.create",
+            "startTimeUnixNano": "1794931154778000000",
+            "endTimeUnixNano": "1794931154789228600",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "calendar.create",
+              "http.response.status_code": 200
+            },
+            "status": 1
+          },
+          {
+            "traceId": "6caf2c3ad81128235f148fd7acd07257",
+            "spanId": "699ac025f09546f3",
+            "parentSpanId": "d4da1ca7a541eef9",
+            "name": "execute_tool calendar.create",
+            "startTimeUnixNano": "1794931154779000000",
+            "endTimeUnixNano": "1794931154789280900",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "calendar.create",
+              "http.response.status_code": 200
+            },
+            "status": 1
+          },
+          {
+            "traceId": "6caf2c3ad81128235f148fd7acd07257",
+            "spanId": "d4da1ca7a541eef9",
+            "name": "actionledger.rehearsal",
+            "startTimeUnixNano": "1794931154763000000",
+            "endTimeUnixNano": "1794931154789842900",
+            "attributes": {
+              "actionledger.mode": "caller-retry",
+              "actionledger.scenario": "concurrent"
+            },
+            "status": 0
+          }
+        ]
+      },
+      "guarded": {
+        "mode": "guarded",
+        "before": {
+          "events": [
+            {
+              "id": "event-planning",
+              "summary": "Launch planning",
+              "start": "10:00",
+              "etag": "v1",
+              "account": "ca_demo"
+            }
+          ],
+          "messages": [],
+          "writes": 0
+        },
+        "after": {
+          "events": [
+            {
+              "id": "event-planning",
+              "summary": "Launch planning",
+              "start": "10:00",
+              "etag": "v1",
+              "account": "ca_demo"
+            },
+            {
+              "id": "event-2",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          ],
+          "messages": [],
+          "writes": 1
+        },
+        "outcomes": [
+          {
+            "state": "IN_FLIGHT",
+            "reason": "Intent claimed before dispatch"
+          },
+          {
+            "state": "IN_FLIGHT",
+            "reason": "Intent claimed before dispatch"
+          },
+          {
+            "state": "IN_FLIGHT",
+            "reason": "Intent claimed before dispatch"
+          },
+          {
+            "state": "IN_FLIGHT",
+            "reason": "Intent claimed before dispatch"
+          },
+          {
+            "state": "IN_FLIGHT",
+            "reason": "Intent claimed before dispatch"
+          },
+          {
+            "state": "IN_FLIGHT",
+            "reason": "Intent claimed before dispatch"
+          },
+          {
+            "state": "IN_FLIGHT",
+            "reason": "Intent claimed before dispatch"
+          },
+          {
+            "state": "COMMITTED",
+            "reason": "Provider acknowledged a durable resource"
+          }
+        ],
+        "receipts": [
+          {
+            "key": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+            "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835",
+            "state": "COMMITTED",
+            "action": {
+              "tenant": "workspace_demo",
+              "actor": "agent_scheduler",
+              "intent": "schedule-launch-001",
+              "account": "ca_demo",
+              "tool": "calendar.create",
+              "version": "fixture-calendar-v1",
+              "arguments": {
+                "summary": "Launch planning",
+                "start": "14:00"
+              }
+            },
+            "result": {
+              "id": "event-2",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            },
+            "reason": "Provider acknowledged a durable resource",
+            "createdAt": "2026-11-17T15:59:14.807Z",
+            "updatedAt": "2026-11-17T15:59:14.812Z"
+          }
+        ],
+        "timeline": [
+          {
+            "sequence": 1,
+            "kind": "ledger",
+            "title": "Intent durably claimed",
+            "detail": "SQLite committed IN_FLIGHT before the SDK call.",
+            "level": "info",
+            "data": {
+              "key": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          },
+          {
+            "sequence": 2,
+            "kind": "ledger",
+            "title": "Existing receipt returned",
+            "detail": "IN_FLIGHT · no second dispatch",
+            "level": "good"
+          },
+          {
+            "sequence": 3,
+            "kind": "ledger",
+            "title": "Existing receipt returned",
+            "detail": "IN_FLIGHT · no second dispatch",
+            "level": "good"
+          },
+          {
+            "sequence": 4,
+            "kind": "ledger",
+            "title": "Existing receipt returned",
+            "detail": "IN_FLIGHT · no second dispatch",
+            "level": "good"
+          },
+          {
+            "sequence": 5,
+            "kind": "ledger",
+            "title": "Existing receipt returned",
+            "detail": "IN_FLIGHT · no second dispatch",
+            "level": "good"
+          },
+          {
+            "sequence": 6,
+            "kind": "ledger",
+            "title": "Existing receipt returned",
+            "detail": "IN_FLIGHT · no second dispatch",
+            "level": "good"
+          },
+          {
+            "sequence": 7,
+            "kind": "ledger",
+            "title": "Existing receipt returned",
+            "detail": "IN_FLIGHT · no second dispatch",
+            "level": "good"
+          },
+          {
+            "sequence": 8,
+            "kind": "ledger",
+            "title": "Existing receipt returned",
+            "detail": "IN_FLIGHT · no second dispatch",
+            "level": "good"
+          },
+          {
+            "sequence": 9,
+            "kind": "request",
+            "title": "POST /calendar/events",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "POST",
+              "endpoint": "/calendar/events",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 10,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/calendar/events · write 1",
+            "level": "info",
+            "data": {
+              "id": "event-2",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          },
+          {
+            "sequence": 11,
+            "kind": "ledger",
+            "title": "Receipt committed",
+            "detail": "The result is stored for repeat callers.",
+            "level": "good"
+          }
+        ],
+        "invariants": [
+          {
+            "id": "one-effect",
+            "label": "One intent produces at most one meeting",
+            "passed": true,
+            "observed": "1 new meeting(s)"
+          },
+          {
+            "id": "account",
+            "label": "No writes to an unauthorized account",
+            "passed": true,
+            "observed": "0 foreign-account event(s)"
+          }
+        ],
+        "sdkRequests": 1,
+        "spans": [
+          {
+            "traceId": "4cf94a57dae0d6e48dbf203722bdf4eb",
+            "spanId": "e2e6369b0a932195",
+            "parentSpanId": "8348be34e43ca52f",
+            "name": "execute_tool calendar.create",
+            "startTimeUnixNano": "1794931154808000000",
+            "endTimeUnixNano": "1794931154811862000",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "calendar.create",
+              "http.response.status_code": 200
+            },
+            "status": 1
+          },
+          {
+            "traceId": "4cf94a57dae0d6e48dbf203722bdf4eb",
+            "spanId": "8348be34e43ca52f",
+            "name": "actionledger.rehearsal",
+            "startTimeUnixNano": "1794931154795000000",
+            "endTimeUnixNano": "1794931154812730600",
+            "attributes": {
+              "actionledger.mode": "guarded",
+              "actionledger.scenario": "concurrent"
+            },
+            "status": 0
+          }
+        ]
+      }
+    },
+    {
+      "scenario": {
+        "id": "key-conflict",
+        "name": "Same key, changed payload",
+        "short": "Bind the complete decision",
+        "description": "A caller reuses an existing intent with a different meeting title. The full fingerprint detects the conflict instead of treating the changed action as a fresh request.",
+        "category": "Identity",
+        "fault": "none",
+        "verification": true
+      },
+      "baseline": {
+        "mode": "caller-retry",
+        "before": {
+          "events": [
+            {
+              "id": "event-planning",
+              "summary": "Launch planning",
+              "start": "10:00",
+              "etag": "v1",
+              "account": "ca_demo"
+            }
+          ],
+          "messages": [],
+          "writes": 0
+        },
+        "after": {
+          "events": [
+            {
+              "id": "event-planning",
+              "summary": "Launch planning",
+              "start": "10:00",
+              "etag": "v1",
+              "account": "ca_demo"
+            },
+            {
+              "id": "event-2",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            },
+            {
+              "id": "event-3",
+              "account": "ca_demo",
+              "summary": "Changed intent, same key",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "847616b5d1107ad7052151d2457e25c8864ba49cfbd0dd9302cc22dc5854abe6"
+            }
+          ],
+          "messages": [],
+          "writes": 2
+        },
+        "outcomes": [
+          {
+            "state": "COMMITTED",
+            "reason": "Caller received success"
+          },
+          {
+            "state": "COMMITTED",
+            "reason": "Caller received success"
+          }
+        ],
+        "receipts": [],
+        "timeline": [
+          {
+            "sequence": 1,
+            "kind": "request",
+            "title": "POST /calendar/events",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "POST",
+              "endpoint": "/calendar/events",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 2,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/calendar/events · write 1",
+            "level": "info",
+            "data": {
+              "id": "event-2",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          },
+          {
+            "sequence": 3,
+            "kind": "request",
+            "title": "POST /calendar/events",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "POST",
+              "endpoint": "/calendar/events",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 4,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/calendar/events · write 2",
+            "level": "info",
+            "data": {
+              "id": "event-3",
+              "account": "ca_demo",
+              "summary": "Changed intent, same key",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "847616b5d1107ad7052151d2457e25c8864ba49cfbd0dd9302cc22dc5854abe6"
+            }
+          }
+        ],
+        "invariants": [
+          {
+            "id": "one-effect",
+            "label": "One intent produces at most one meeting",
+            "passed": false,
+            "observed": "2 new meeting(s)"
+          },
+          {
+            "id": "account",
+            "label": "No writes to an unauthorized account",
+            "passed": true,
+            "observed": "0 foreign-account event(s)"
+          },
+          {
+            "id": "binding",
+            "label": "Changed inputs cannot reuse the intent",
+            "passed": false,
+            "observed": "1 conflicting effect(s)"
+          }
+        ],
+        "sdkRequests": 2,
+        "spans": [
+          {
+            "traceId": "a151d0011ec4014545231ff5e8470967",
+            "spanId": "d1624cf836db281f",
+            "parentSpanId": "bc807ca91d4d1356",
+            "name": "execute_tool calendar.create",
+            "startTimeUnixNano": "1794931154832000000",
+            "endTimeUnixNano": "1794931154834419100",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "calendar.create",
+              "http.response.status_code": 200
+            },
+            "status": 1
+          },
+          {
+            "traceId": "a151d0011ec4014545231ff5e8470967",
+            "spanId": "c6bf424218fb89d1",
+            "parentSpanId": "bc807ca91d4d1356",
+            "name": "execute_tool calendar.create",
+            "startTimeUnixNano": "1794931154835000000",
+            "endTimeUnixNano": "1794931154836475700",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "calendar.create",
+              "http.response.status_code": 200
+            },
+            "status": 1
+          },
+          {
+            "traceId": "a151d0011ec4014545231ff5e8470967",
+            "spanId": "bc807ca91d4d1356",
+            "name": "actionledger.rehearsal",
+            "startTimeUnixNano": "1794931154821000000",
+            "endTimeUnixNano": "1794931154836858600",
+            "attributes": {
+              "actionledger.mode": "caller-retry",
+              "actionledger.scenario": "key-conflict"
+            },
+            "status": 0
+          }
+        ]
+      },
+      "guarded": {
+        "mode": "guarded",
+        "before": {
+          "events": [
+            {
+              "id": "event-planning",
+              "summary": "Launch planning",
+              "start": "10:00",
+              "etag": "v1",
+              "account": "ca_demo"
+            }
+          ],
+          "messages": [],
+          "writes": 0
+        },
+        "after": {
+          "events": [
+            {
+              "id": "event-planning",
+              "summary": "Launch planning",
+              "start": "10:00",
+              "etag": "v1",
+              "account": "ca_demo"
+            },
+            {
+              "id": "event-2",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          ],
+          "messages": [],
+          "writes": 1
+        },
+        "outcomes": [
+          {
+            "state": "COMMITTED",
+            "reason": "Provider acknowledged a durable resource"
+          },
+          {
+            "state": "KEY_CONFLICT",
+            "reason": "Intent is already bound to different inputs"
+          }
+        ],
+        "receipts": [
+          {
+            "key": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+            "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835",
+            "state": "COMMITTED",
+            "action": {
+              "tenant": "workspace_demo",
+              "actor": "agent_scheduler",
+              "intent": "schedule-launch-001",
+              "account": "ca_demo",
+              "tool": "calendar.create",
+              "version": "fixture-calendar-v1",
+              "arguments": {
+                "summary": "Launch planning",
+                "start": "14:00"
+              }
+            },
+            "result": {
+              "id": "event-2",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            },
+            "reason": "Provider acknowledged a durable resource",
+            "createdAt": "2026-11-17T15:59:14.852Z",
+            "updatedAt": "2026-11-17T15:59:14.856Z"
+          }
+        ],
+        "timeline": [
+          {
+            "sequence": 1,
+            "kind": "ledger",
+            "title": "Intent durably claimed",
+            "detail": "SQLite committed IN_FLIGHT before the SDK call.",
+            "level": "info",
+            "data": {
+              "key": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          },
+          {
+            "sequence": 2,
+            "kind": "request",
+            "title": "POST /calendar/events",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "POST",
+              "endpoint": "/calendar/events",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 3,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/calendar/events · write 1",
+            "level": "info",
+            "data": {
+              "id": "event-2",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          },
+          {
+            "sequence": 4,
+            "kind": "ledger",
+            "title": "Receipt committed",
+            "detail": "The result is stored for repeat callers.",
+            "level": "good"
+          },
+          {
+            "sequence": 5,
+            "kind": "decision",
+            "title": "Intent conflict blocked",
+            "detail": "The same intent was reused with a different actor, account, tool, version or payload.",
+            "level": "good"
+          }
+        ],
+        "invariants": [
+          {
+            "id": "one-effect",
+            "label": "One intent produces at most one meeting",
+            "passed": true,
+            "observed": "1 new meeting(s)"
+          },
+          {
+            "id": "account",
+            "label": "No writes to an unauthorized account",
+            "passed": true,
+            "observed": "0 foreign-account event(s)"
+          },
+          {
+            "id": "binding",
+            "label": "Changed inputs cannot reuse the intent",
+            "passed": true,
+            "observed": "0 conflicting effect(s)"
+          }
+        ],
+        "sdkRequests": 1,
+        "spans": [
+          {
+            "traceId": "3e741dd16f01e612ac33fffaa2765cc2",
+            "spanId": "920a2b38aea1393d",
+            "parentSpanId": "8ec836a15845e99c",
+            "name": "execute_tool calendar.create",
+            "startTimeUnixNano": "1794931154853000000",
+            "endTimeUnixNano": "1794931154855601500",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "calendar.create",
+              "http.response.status_code": 200
+            },
+            "status": 1
+          },
+          {
+            "traceId": "3e741dd16f01e612ac33fffaa2765cc2",
+            "spanId": "8ec836a15845e99c",
+            "name": "actionledger.rehearsal",
+            "startTimeUnixNano": "1794931154840000000",
+            "endTimeUnixNano": "1794931154856703800",
+            "attributes": {
+              "actionledger.mode": "guarded",
+              "actionledger.scenario": "key-conflict"
+            },
+            "status": 0
+          }
+        ]
+      }
+    },
+    {
+      "scenario": {
+        "id": "wrong-account",
+        "name": "The wrong connected account",
+        "short": "Check scope before dispatch",
+        "description": "A scripted caller selects ca_other. The fixture policy authorizes ca_demo only. ActionLedger blocks before any SDK call. This is a local policy fixture, not production IAM.",
+        "category": "Identity",
+        "fault": "none",
+        "verification": true
+      },
+      "baseline": {
+        "mode": "caller-retry",
+        "before": {
+          "events": [
+            {
+              "id": "event-planning",
+              "summary": "Launch planning",
+              "start": "10:00",
+              "etag": "v1",
+              "account": "ca_demo"
+            }
+          ],
+          "messages": [],
+          "writes": 0
+        },
+        "after": {
+          "events": [
+            {
+              "id": "event-planning",
+              "summary": "Launch planning",
+              "start": "10:00",
+              "etag": "v1",
+              "account": "ca_demo"
+            },
+            {
+              "id": "event-2",
+              "account": "ca_other",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "baad52006188514edd918e10131d12edd2e042444b3ac4987ee90ed7757745a0"
+            }
+          ],
+          "messages": [],
+          "writes": 1
+        },
+        "outcomes": [
+          {
+            "state": "COMMITTED",
+            "reason": "Caller received success"
+          }
+        ],
+        "receipts": [],
+        "timeline": [
+          {
+            "sequence": 1,
+            "kind": "request",
+            "title": "POST /calendar/events",
+            "detail": "Published Composio SDK → loopback proxy · ca_other",
+            "level": "info",
+            "data": {
+              "method": "POST",
+              "endpoint": "/calendar/events",
+              "account": "ca_other"
+            }
+          },
+          {
+            "sequence": 2,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/calendar/events · write 1",
+            "level": "info",
+            "data": {
+              "id": "event-2",
+              "account": "ca_other",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "baad52006188514edd918e10131d12edd2e042444b3ac4987ee90ed7757745a0"
+            }
+          }
+        ],
+        "invariants": [
+          {
+            "id": "one-effect",
+            "label": "One intent produces at most one meeting",
+            "passed": true,
+            "observed": "1 new meeting(s)"
+          },
+          {
+            "id": "account",
+            "label": "No writes to an unauthorized account",
+            "passed": false,
+            "observed": "1 foreign-account event(s)"
+          }
+        ],
+        "sdkRequests": 1,
+        "spans": [
+          {
+            "traceId": "55a1a94eb6c8f213646bfd0e52208f01",
+            "spanId": "d1edc9cfd5d7b0ac",
+            "parentSpanId": "186b6c49eaff90b8",
+            "name": "execute_tool calendar.create",
+            "startTimeUnixNano": "1794931154877000000",
+            "endTimeUnixNano": "1794931154879367000",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "calendar.create",
+              "http.response.status_code": 200
+            },
+            "status": 1
+          },
+          {
+            "traceId": "55a1a94eb6c8f213646bfd0e52208f01",
+            "spanId": "186b6c49eaff90b8",
+            "name": "actionledger.rehearsal",
+            "startTimeUnixNano": "1794931154862000000",
+            "endTimeUnixNano": "1794931154878994800",
+            "attributes": {
+              "actionledger.mode": "caller-retry",
+              "actionledger.scenario": "wrong-account"
+            },
+            "status": 0
+          }
+        ]
+      },
+      "guarded": {
+        "mode": "guarded",
+        "before": {
+          "events": [
+            {
+              "id": "event-planning",
+              "summary": "Launch planning",
+              "start": "10:00",
+              "etag": "v1",
+              "account": "ca_demo"
+            }
+          ],
+          "messages": [],
+          "writes": 0
+        },
+        "after": {
+          "events": [
+            {
+              "id": "event-planning",
+              "summary": "Launch planning",
+              "start": "10:00",
+              "etag": "v1",
+              "account": "ca_demo"
+            }
+          ],
+          "messages": [],
+          "writes": 0
+        },
+        "outcomes": [
+          {
+            "state": "BLOCKED",
+            "reason": "Account is not authorized for this actor in the fixture policy"
+          }
+        ],
+        "receipts": [],
+        "timeline": [
+          {
+            "sequence": 1,
+            "kind": "decision",
+            "title": "Account blocked",
+            "detail": "Requested account is outside the trusted local policy.",
+            "level": "good"
+          }
+        ],
+        "invariants": [
+          {
+            "id": "one-effect",
+            "label": "One intent produces at most one meeting",
+            "passed": true,
+            "observed": "0 new meeting(s)"
+          },
+          {
+            "id": "account",
+            "label": "No writes to an unauthorized account",
+            "passed": true,
+            "observed": "0 foreign-account event(s)"
+          }
+        ],
+        "sdkRequests": 0,
+        "spans": [
+          {
+            "traceId": "59c23d60fcad8c42a7e3a605f90b5b44",
+            "spanId": "6d9788d384360078",
+            "name": "actionledger.rehearsal",
+            "startTimeUnixNano": "1794931154885000000",
+            "endTimeUnixNano": "1794931154898109200",
+            "attributes": {
+              "actionledger.mode": "guarded",
+              "actionledger.scenario": "wrong-account"
+            },
+            "status": 0
+          }
+        ]
+      }
+    },
+    {
+      "scenario": {
+        "id": "false-failure",
+        "name": "Failure did not mean failure",
+        "short": "A 500 after a successful write",
+        "description": "The synthetic proxy returns a failure after storing the event. The outcome is resolved from a unique provider record, rather than interpreting an error as permission to retry.",
+        "category": "Recovery",
+        "fault": "false-failure",
+        "verification": true
+      },
+      "baseline": {
+        "mode": "caller-retry",
+        "before": {
+          "events": [
+            {
+              "id": "event-planning",
+              "summary": "Launch planning",
+              "start": "10:00",
+              "etag": "v1",
+              "account": "ca_demo"
+            }
+          ],
+          "messages": [],
+          "writes": 0
+        },
+        "after": {
+          "events": [
+            {
+              "id": "event-planning",
+              "summary": "Launch planning",
+              "start": "10:00",
+              "etag": "v1",
+              "account": "ca_demo"
+            },
+            {
+              "id": "event-2",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            },
+            {
+              "id": "event-3",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          ],
+          "messages": [
+            {
+              "id": "message-1",
+              "account": "ca_demo",
+              "text": "Meeting action confirmed.",
+              "marker": "d68ed353c53c13e143efedfbdc824a8b301aee07608752767d668121f9c5576f",
+              "fingerprint": "bb597a6c510b0bcdb35c95388a3ffc5b140991004ecf605571b22560fd77392e"
+            }
+          ],
+          "writes": 3
+        },
+        "outcomes": [
+          {
+            "state": "COMMITTED",
+            "reason": "Caller received success after retry"
+          },
+          {
+            "state": "COMMITTED",
+            "reason": "Caller received success"
+          }
+        ],
+        "receipts": [],
+        "timeline": [
+          {
+            "sequence": 1,
+            "kind": "request",
+            "title": "POST /calendar/events",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "POST",
+              "endpoint": "/calendar/events",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 2,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/calendar/events · write 1",
+            "level": "info",
+            "data": {
+              "id": "event-2",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          },
+          {
+            "sequence": 3,
+            "kind": "provider",
+            "title": "Failure response after commit",
+            "detail": "The synthetic proxy reports 500 although the provider state changed.",
+            "level": "warn"
+          },
+          {
+            "sequence": 4,
+            "kind": "decision",
+            "title": "Application retries the write",
+            "detail": "Deliberately unsafe comparison policy; this is not SDK automatic retry behavior.",
+            "level": "bad"
+          },
+          {
+            "sequence": 5,
+            "kind": "request",
+            "title": "POST /calendar/events",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "POST",
+              "endpoint": "/calendar/events",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 6,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/calendar/events · write 2",
+            "level": "info",
+            "data": {
+              "id": "event-3",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          },
+          {
+            "sequence": 7,
+            "kind": "request",
+            "title": "POST /chat/messages",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "POST",
+              "endpoint": "/chat/messages",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 8,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/chat/messages · write 3",
+            "level": "info",
+            "data": {
+              "id": "message-1",
+              "account": "ca_demo",
+              "text": "Meeting action confirmed.",
+              "marker": "d68ed353c53c13e143efedfbdc824a8b301aee07608752767d668121f9c5576f",
+              "fingerprint": "bb597a6c510b0bcdb35c95388a3ffc5b140991004ecf605571b22560fd77392e"
+            }
+          }
+        ],
+        "invariants": [
+          {
+            "id": "one-effect",
+            "label": "One intent produces at most one meeting",
+            "passed": false,
+            "observed": "2 new meeting(s)"
+          },
+          {
+            "id": "account",
+            "label": "No writes to an unauthorized account",
+            "passed": true,
+            "observed": "0 foreign-account event(s)"
+          }
+        ],
+        "sdkRequests": 3,
+        "spans": [
+          {
+            "traceId": "e0bdaaca1cdf29d72da6e7a3a5237528",
+            "spanId": "084c3901e100f698",
+            "parentSpanId": "925ea5fb178a2ddf",
+            "name": "execute_tool calendar.create",
+            "startTimeUnixNano": "1794931154914000000",
+            "endTimeUnixNano": "1794931154916270000",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "calendar.create",
+              "http.response.status_code": 500
+            },
+            "status": 2
+          },
+          {
+            "traceId": "e0bdaaca1cdf29d72da6e7a3a5237528",
+            "spanId": "1beba7e52f5cebab",
+            "parentSpanId": "925ea5fb178a2ddf",
+            "name": "execute_tool calendar.create",
+            "startTimeUnixNano": "1794931154916000000",
+            "endTimeUnixNano": "1794931154917422400",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "calendar.create",
+              "http.response.status_code": 200
+            },
+            "status": 1
+          },
+          {
+            "traceId": "e0bdaaca1cdf29d72da6e7a3a5237528",
+            "spanId": "e95997bb24fbe1c5",
+            "parentSpanId": "925ea5fb178a2ddf",
+            "name": "execute_tool chat.send",
+            "startTimeUnixNano": "1794931154918000000",
+            "endTimeUnixNano": "1794931154918939500",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "chat.send",
+              "http.response.status_code": 200
+            },
+            "status": 1
+          },
+          {
+            "traceId": "e0bdaaca1cdf29d72da6e7a3a5237528",
+            "spanId": "925ea5fb178a2ddf",
+            "name": "actionledger.rehearsal",
+            "startTimeUnixNano": "1794931154902000000",
+            "endTimeUnixNano": "1794931154918981600",
+            "attributes": {
+              "actionledger.mode": "caller-retry",
+              "actionledger.scenario": "false-failure"
+            },
+            "status": 0
+          }
+        ]
+      },
+      "guarded": {
+        "mode": "guarded",
+        "before": {
+          "events": [
+            {
+              "id": "event-planning",
+              "summary": "Launch planning",
+              "start": "10:00",
+              "etag": "v1",
+              "account": "ca_demo"
+            }
+          ],
+          "messages": [],
+          "writes": 0
+        },
+        "after": {
+          "events": [
+            {
+              "id": "event-planning",
+              "summary": "Launch planning",
+              "start": "10:00",
+              "etag": "v1",
+              "account": "ca_demo"
+            },
+            {
+              "id": "event-2",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          ],
+          "messages": [
+            {
+              "id": "message-1",
+              "account": "ca_demo",
+              "text": "Meeting action confirmed.",
+              "marker": "d68ed353c53c13e143efedfbdc824a8b301aee07608752767d668121f9c5576f",
+              "fingerprint": "bb597a6c510b0bcdb35c95388a3ffc5b140991004ecf605571b22560fd77392e"
+            }
+          ],
+          "writes": 2
+        },
+        "outcomes": [
+          {
+            "state": "COMMITTED",
+            "reason": "One matching provider record verified by intent, fingerprint and account"
+          },
+          {
+            "state": "COMMITTED",
+            "reason": "Provider acknowledged a durable resource"
+          }
+        ],
+        "receipts": [
+          {
+            "key": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+            "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835",
+            "state": "COMMITTED",
+            "action": {
+              "tenant": "workspace_demo",
+              "actor": "agent_scheduler",
+              "intent": "schedule-launch-001",
+              "account": "ca_demo",
+              "tool": "calendar.create",
+              "version": "fixture-calendar-v1",
+              "arguments": {
+                "summary": "Launch planning",
+                "start": "14:00"
+              }
+            },
+            "result": {
+              "id": "event-2",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            },
+            "reason": "One matching provider record verified by intent, fingerprint and account",
+            "createdAt": "2026-11-17T15:59:14.937Z",
+            "updatedAt": "2026-11-17T15:59:14.948Z"
+          },
+          {
+            "key": "d68ed353c53c13e143efedfbdc824a8b301aee07608752767d668121f9c5576f",
+            "fingerprint": "bb597a6c510b0bcdb35c95388a3ffc5b140991004ecf605571b22560fd77392e",
+            "state": "COMMITTED",
+            "action": {
+              "tenant": "workspace_demo",
+              "actor": "agent_scheduler",
+              "intent": "schedule-launch-001/notify",
+              "account": "ca_demo",
+              "tool": "chat.send",
+              "version": "fixture-chat-v1",
+              "arguments": {
+                "text": "Meeting action confirmed."
+              }
+            },
+            "result": {
+              "id": "message-1",
+              "account": "ca_demo",
+              "text": "Meeting action confirmed.",
+              "marker": "d68ed353c53c13e143efedfbdc824a8b301aee07608752767d668121f9c5576f",
+              "fingerprint": "bb597a6c510b0bcdb35c95388a3ffc5b140991004ecf605571b22560fd77392e"
+            },
+            "reason": "Provider acknowledged a durable resource",
+            "createdAt": "2026-11-17T15:59:14.950Z",
+            "updatedAt": "2026-11-17T15:59:14.952Z"
+          }
+        ],
+        "timeline": [
+          {
+            "sequence": 1,
+            "kind": "ledger",
+            "title": "Intent durably claimed",
+            "detail": "SQLite committed IN_FLIGHT before the SDK call.",
+            "level": "info",
+            "data": {
+              "key": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          },
+          {
+            "sequence": 2,
+            "kind": "request",
+            "title": "POST /calendar/events",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "POST",
+              "endpoint": "/calendar/events",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 3,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/calendar/events · write 1",
+            "level": "info",
+            "data": {
+              "id": "event-2",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          },
+          {
+            "sequence": 4,
+            "kind": "provider",
+            "title": "Failure response after commit",
+            "detail": "The synthetic proxy reports 500 although the provider state changed.",
+            "level": "warn"
+          },
+          {
+            "sequence": 5,
+            "kind": "ledger",
+            "title": "Outcome marked UNKNOWN",
+            "detail": "Outcome uncertain; repeating the mutation is unsafe",
+            "level": "warn"
+          },
+          {
+            "sequence": 6,
+            "kind": "request",
+            "title": "GET /calendar/events",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "GET",
+              "endpoint": "/calendar/events",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 7,
+            "kind": "decision",
+            "title": "Reconciled from provider evidence",
+            "detail": "Exactly one matching durable record. No mutation retry.",
+            "level": "good",
+            "data": {
+              "key": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9"
+            }
+          },
+          {
+            "sequence": 8,
+            "kind": "ledger",
+            "title": "Intent durably claimed",
+            "detail": "SQLite committed IN_FLIGHT before the SDK call.",
+            "level": "info",
+            "data": {
+              "key": "d68ed353c53c13e143efedfbdc824a8b301aee07608752767d668121f9c5576f",
+              "fingerprint": "bb597a6c510b0bcdb35c95388a3ffc5b140991004ecf605571b22560fd77392e"
+            }
+          },
+          {
+            "sequence": 9,
+            "kind": "request",
+            "title": "POST /chat/messages",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "POST",
+              "endpoint": "/chat/messages",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 10,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/chat/messages · write 2",
+            "level": "info",
+            "data": {
+              "id": "message-1",
+              "account": "ca_demo",
+              "text": "Meeting action confirmed.",
+              "marker": "d68ed353c53c13e143efedfbdc824a8b301aee07608752767d668121f9c5576f",
+              "fingerprint": "bb597a6c510b0bcdb35c95388a3ffc5b140991004ecf605571b22560fd77392e"
+            }
+          },
+          {
+            "sequence": 11,
+            "kind": "ledger",
+            "title": "Receipt committed",
+            "detail": "The result is stored for repeat callers.",
+            "level": "good"
+          }
+        ],
+        "invariants": [
+          {
+            "id": "one-effect",
+            "label": "One intent produces at most one meeting",
+            "passed": true,
+            "observed": "1 new meeting(s)"
+          },
+          {
+            "id": "account",
+            "label": "No writes to an unauthorized account",
+            "passed": true,
+            "observed": "0 foreign-account event(s)"
+          }
+        ],
+        "sdkRequests": 3,
+        "spans": [
+          {
+            "traceId": "33ed4cd51981ef2e8e4d0748a53c0665",
+            "spanId": "bd3c2f2cb620275c",
+            "parentSpanId": "e4273a53bd0878fb",
+            "name": "execute_tool calendar.create",
+            "startTimeUnixNano": "1794931154939000000",
+            "endTimeUnixNano": "1794931154944728600",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "calendar.create",
+              "http.response.status_code": 500
+            },
+            "status": 2
+          },
+          {
+            "traceId": "33ed4cd51981ef2e8e4d0748a53c0665",
+            "spanId": "28adc447dde58a86",
+            "parentSpanId": "e4273a53bd0878fb",
+            "name": "execute_tool calendar.create",
+            "startTimeUnixNano": "1794931154946000000",
+            "endTimeUnixNano": "1794931154948460600",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "calendar.create",
+              "http.response.status_code": 200
+            },
+            "status": 1
+          },
+          {
+            "traceId": "33ed4cd51981ef2e8e4d0748a53c0665",
+            "spanId": "8cc33ef353b12605",
+            "parentSpanId": "e4273a53bd0878fb",
+            "name": "execute_tool chat.send",
+            "startTimeUnixNano": "1794931154951000000",
+            "endTimeUnixNano": "1794931154952077900",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "chat.send",
+              "http.response.status_code": 200
+            },
+            "status": 1
+          },
+          {
+            "traceId": "33ed4cd51981ef2e8e4d0748a53c0665",
+            "spanId": "e4273a53bd0878fb",
+            "name": "actionledger.rehearsal",
+            "startTimeUnixNano": "1794931154922000000",
+            "endTimeUnixNano": "1794931154952836100",
+            "attributes": {
+              "actionledger.mode": "guarded",
+              "actionledger.scenario": "false-failure"
+            },
+            "status": 0
+          }
+        ]
+      }
+    },
+    {
+      "scenario": {
+        "id": "normal",
+        "name": "The healthy path",
+        "short": "A control that actually completes",
+        "description": "No fault is injected. Both paths should create one event and one notification. A safety layer must also allow normal work to complete.",
+        "category": "Control",
+        "fault": "none",
+        "verification": true
+      },
+      "baseline": {
+        "mode": "caller-retry",
+        "before": {
+          "events": [
+            {
+              "id": "event-planning",
+              "summary": "Launch planning",
+              "start": "10:00",
+              "etag": "v1",
+              "account": "ca_demo"
+            }
+          ],
+          "messages": [],
+          "writes": 0
+        },
+        "after": {
+          "events": [
+            {
+              "id": "event-planning",
+              "summary": "Launch planning",
+              "start": "10:00",
+              "etag": "v1",
+              "account": "ca_demo"
+            },
+            {
+              "id": "event-2",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          ],
+          "messages": [
+            {
+              "id": "message-1",
+              "account": "ca_demo",
+              "text": "Meeting action confirmed.",
+              "marker": "d68ed353c53c13e143efedfbdc824a8b301aee07608752767d668121f9c5576f",
+              "fingerprint": "bb597a6c510b0bcdb35c95388a3ffc5b140991004ecf605571b22560fd77392e"
+            }
+          ],
+          "writes": 2
+        },
+        "outcomes": [
+          {
+            "state": "COMMITTED",
+            "reason": "Caller received success"
+          },
+          {
+            "state": "COMMITTED",
+            "reason": "Caller received success"
+          }
+        ],
+        "receipts": [],
+        "timeline": [
+          {
+            "sequence": 1,
+            "kind": "request",
+            "title": "POST /calendar/events",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "POST",
+              "endpoint": "/calendar/events",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 2,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/calendar/events · write 1",
+            "level": "info",
+            "data": {
+              "id": "event-2",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          },
+          {
+            "sequence": 3,
+            "kind": "request",
+            "title": "POST /chat/messages",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "POST",
+              "endpoint": "/chat/messages",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 4,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/chat/messages · write 2",
+            "level": "info",
+            "data": {
+              "id": "message-1",
+              "account": "ca_demo",
+              "text": "Meeting action confirmed.",
+              "marker": "d68ed353c53c13e143efedfbdc824a8b301aee07608752767d668121f9c5576f",
+              "fingerprint": "bb597a6c510b0bcdb35c95388a3ffc5b140991004ecf605571b22560fd77392e"
+            }
+          }
+        ],
+        "invariants": [
+          {
+            "id": "one-effect",
+            "label": "One intent produces at most one meeting",
+            "passed": true,
+            "observed": "1 new meeting(s)"
+          },
+          {
+            "id": "account",
+            "label": "No writes to an unauthorized account",
+            "passed": true,
+            "observed": "0 foreign-account event(s)"
+          },
+          {
+            "id": "complete",
+            "label": "Healthy work completes with its notification",
+            "passed": true,
+            "observed": "1 event + 1 notification"
+          }
+        ],
+        "sdkRequests": 2,
+        "spans": [
+          {
+            "traceId": "014a5486097c682b63a9aad78cc5d5cc",
+            "spanId": "2163219c3f6a2f25",
+            "parentSpanId": "5faff5011dce9423",
+            "name": "execute_tool calendar.create",
+            "startTimeUnixNano": "1794931154969000000",
+            "endTimeUnixNano": "1794931154971247600",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "calendar.create",
+              "http.response.status_code": 200
+            },
+            "status": 1
+          },
+          {
+            "traceId": "014a5486097c682b63a9aad78cc5d5cc",
+            "spanId": "30d00c5d9fad8f20",
+            "parentSpanId": "5faff5011dce9423",
+            "name": "execute_tool chat.send",
+            "startTimeUnixNano": "1794931154972000000",
+            "endTimeUnixNano": "1794931154973403400",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "chat.send",
+              "http.response.status_code": 200
+            },
+            "status": 1
+          },
+          {
+            "traceId": "014a5486097c682b63a9aad78cc5d5cc",
+            "spanId": "5faff5011dce9423",
+            "name": "actionledger.rehearsal",
+            "startTimeUnixNano": "1794931154956000000",
+            "endTimeUnixNano": "1794931154973079900",
+            "attributes": {
+              "actionledger.mode": "caller-retry",
+              "actionledger.scenario": "normal"
+            },
+            "status": 0
+          }
+        ]
+      },
+      "guarded": {
+        "mode": "guarded",
+        "before": {
+          "events": [
+            {
+              "id": "event-planning",
+              "summary": "Launch planning",
+              "start": "10:00",
+              "etag": "v1",
+              "account": "ca_demo"
+            }
+          ],
+          "messages": [],
+          "writes": 0
+        },
+        "after": {
+          "events": [
+            {
+              "id": "event-planning",
+              "summary": "Launch planning",
+              "start": "10:00",
+              "etag": "v1",
+              "account": "ca_demo"
+            },
+            {
+              "id": "event-2",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          ],
+          "messages": [
+            {
+              "id": "message-1",
+              "account": "ca_demo",
+              "text": "Meeting action confirmed.",
+              "marker": "d68ed353c53c13e143efedfbdc824a8b301aee07608752767d668121f9c5576f",
+              "fingerprint": "bb597a6c510b0bcdb35c95388a3ffc5b140991004ecf605571b22560fd77392e"
+            }
+          ],
+          "writes": 2
+        },
+        "outcomes": [
+          {
+            "state": "COMMITTED",
+            "reason": "Provider acknowledged a durable resource"
+          },
+          {
+            "state": "COMMITTED",
+            "reason": "Provider acknowledged a durable resource"
+          }
+        ],
+        "receipts": [
+          {
+            "key": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+            "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835",
+            "state": "COMMITTED",
+            "action": {
+              "tenant": "workspace_demo",
+              "actor": "agent_scheduler",
+              "intent": "schedule-launch-001",
+              "account": "ca_demo",
+              "tool": "calendar.create",
+              "version": "fixture-calendar-v1",
+              "arguments": {
+                "summary": "Launch planning",
+                "start": "14:00"
+              }
+            },
+            "result": {
+              "id": "event-2",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            },
+            "reason": "Provider acknowledged a durable resource",
+            "createdAt": "2026-11-17T15:59:15.003Z",
+            "updatedAt": "2026-11-17T15:59:15.007Z"
+          },
+          {
+            "key": "d68ed353c53c13e143efedfbdc824a8b301aee07608752767d668121f9c5576f",
+            "fingerprint": "bb597a6c510b0bcdb35c95388a3ffc5b140991004ecf605571b22560fd77392e",
+            "state": "COMMITTED",
+            "action": {
+              "tenant": "workspace_demo",
+              "actor": "agent_scheduler",
+              "intent": "schedule-launch-001/notify",
+              "account": "ca_demo",
+              "tool": "chat.send",
+              "version": "fixture-chat-v1",
+              "arguments": {
+                "text": "Meeting action confirmed."
+              }
+            },
+            "result": {
+              "id": "message-1",
+              "account": "ca_demo",
+              "text": "Meeting action confirmed.",
+              "marker": "d68ed353c53c13e143efedfbdc824a8b301aee07608752767d668121f9c5576f",
+              "fingerprint": "bb597a6c510b0bcdb35c95388a3ffc5b140991004ecf605571b22560fd77392e"
+            },
+            "reason": "Provider acknowledged a durable resource",
+            "createdAt": "2026-11-17T15:59:15.008Z",
+            "updatedAt": "2026-11-17T15:59:15.011Z"
+          }
+        ],
+        "timeline": [
+          {
+            "sequence": 1,
+            "kind": "ledger",
+            "title": "Intent durably claimed",
+            "detail": "SQLite committed IN_FLIGHT before the SDK call.",
+            "level": "info",
+            "data": {
+              "key": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          },
+          {
+            "sequence": 2,
+            "kind": "request",
+            "title": "POST /calendar/events",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "POST",
+              "endpoint": "/calendar/events",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 3,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/calendar/events · write 1",
+            "level": "info",
+            "data": {
+              "id": "event-2",
+              "account": "ca_demo",
+              "summary": "Launch planning",
+              "start": "14:00",
+              "etag": "v1",
+              "marker": "d1641c515db09c71f857be8e165651c5f8adb024295f51e2bbe3cbe9a39e26d9",
+              "fingerprint": "4cbb2d9c32296243798cafb4b794b9f806442eff9a81281277f349e9019f6835"
+            }
+          },
+          {
+            "sequence": 4,
+            "kind": "ledger",
+            "title": "Receipt committed",
+            "detail": "The result is stored for repeat callers.",
+            "level": "good"
+          },
+          {
+            "sequence": 5,
+            "kind": "ledger",
+            "title": "Intent durably claimed",
+            "detail": "SQLite committed IN_FLIGHT before the SDK call.",
+            "level": "info",
+            "data": {
+              "key": "d68ed353c53c13e143efedfbdc824a8b301aee07608752767d668121f9c5576f",
+              "fingerprint": "bb597a6c510b0bcdb35c95388a3ffc5b140991004ecf605571b22560fd77392e"
+            }
+          },
+          {
+            "sequence": 6,
+            "kind": "request",
+            "title": "POST /chat/messages",
+            "detail": "Published Composio SDK → loopback proxy · ca_demo",
+            "level": "info",
+            "data": {
+              "method": "POST",
+              "endpoint": "/chat/messages",
+              "account": "ca_demo"
+            }
+          },
+          {
+            "sequence": 7,
+            "kind": "provider",
+            "title": "Side effect committed",
+            "detail": "/chat/messages · write 2",
+            "level": "info",
+            "data": {
+              "id": "message-1",
+              "account": "ca_demo",
+              "text": "Meeting action confirmed.",
+              "marker": "d68ed353c53c13e143efedfbdc824a8b301aee07608752767d668121f9c5576f",
+              "fingerprint": "bb597a6c510b0bcdb35c95388a3ffc5b140991004ecf605571b22560fd77392e"
+            }
+          },
+          {
+            "sequence": 8,
+            "kind": "ledger",
+            "title": "Receipt committed",
+            "detail": "The result is stored for repeat callers.",
+            "level": "good"
+          }
+        ],
+        "invariants": [
+          {
+            "id": "one-effect",
+            "label": "One intent produces at most one meeting",
+            "passed": true,
+            "observed": "1 new meeting(s)"
+          },
+          {
+            "id": "account",
+            "label": "No writes to an unauthorized account",
+            "passed": true,
+            "observed": "0 foreign-account event(s)"
+          },
+          {
+            "id": "complete",
+            "label": "Healthy work completes with its notification",
+            "passed": true,
+            "observed": "1 event + 1 notification"
+          }
+        ],
+        "sdkRequests": 2,
+        "spans": [
+          {
+            "traceId": "7579ee5eebfd4896003ea33d7d7a0d2d",
+            "spanId": "ae12e3a6d6753e0a",
+            "parentSpanId": "8f9c3a41d5dce98b",
+            "name": "execute_tool calendar.create",
+            "startTimeUnixNano": "1794931155004000000",
+            "endTimeUnixNano": "1794931155006545400",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "calendar.create",
+              "http.response.status_code": 200
+            },
+            "status": 1
+          },
+          {
+            "traceId": "7579ee5eebfd4896003ea33d7d7a0d2d",
+            "spanId": "1837a6c0d3bcce3b",
+            "parentSpanId": "8f9c3a41d5dce98b",
+            "name": "execute_tool chat.send",
+            "startTimeUnixNano": "1794931155009000000",
+            "endTimeUnixNano": "1794931155011295100",
+            "attributes": {
+              "gen_ai.operation.name": "execute_tool",
+              "gen_ai.tool.name": "chat.send",
+              "http.response.status_code": 200
+            },
+            "status": 1
+          },
+          {
+            "traceId": "7579ee5eebfd4896003ea33d7d7a0d2d",
+            "spanId": "8f9c3a41d5dce98b",
+            "name": "actionledger.rehearsal",
+            "startTimeUnixNano": "1794931154990000000",
+            "endTimeUnixNano": "1794931155012409400",
+            "attributes": {
+              "actionledger.mode": "guarded",
+              "actionledger.scenario": "normal"
+            },
+            "status": 0
+          }
+        ]
+      }
+    }
+  ],
+  "summary": {
+    "scenarios": 8,
+    "baselineViolations": 9,
+    "guardedViolations": 0,
+    "baselineWrites": 24,
+    "guardedWrites": 9,
+    "committed": 8,
+    "held": 1
+  },
+  "digest": "af9a822ead41893c713264345b55343183924ddb118797029a386f7eae2734a8"
+}
